@@ -9,8 +9,8 @@ documentation generator.
 ## Image versions
 
   - [![](https://images.microbadger.com/badges/version/phptailors/doctum.svg)](https://microbadger.com/images/phptailors/doctum "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum.svg)](https://microbadger.com/images/phptailors/doctum "Get your own image badge on microbadger.com")
-  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.2-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.2-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.2-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.2-alpine "Get your own image badge on microbadger.com")
-  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.1-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.1-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.1-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.1-alpine "Get your own image badge on microbadger.com")
+  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.4-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.4-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.4-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.4-alpine "Get your own image badge on microbadger.com")
+  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.3-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.3-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.3-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.3-alpine "Get your own image badge on microbadger.com")
 
 ## Features
 
