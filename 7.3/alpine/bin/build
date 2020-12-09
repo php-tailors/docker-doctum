@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+#############################################################################
+# NOTE: FILE GENERATED AUTOMATICALLY, DO NOT EDIT!!!
+#############################################################################
+
+
+set -e
+
+. "`dirname $0`/doctum-env"
+
+(
+  flock -x 200
+  doctum update $DOCTUM_FLAGS "$DOCTUM_CONFIG"
+) 200>"$DOCTUM_BUILD_LOCK"

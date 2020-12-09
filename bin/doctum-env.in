@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+@GENERATED_WARNING@
+
+set -e
+
+# Environment variables used by several scripts of the php-tailors/doctum docker
+# image. You should source it from every shell script that refer these
+# variables.
+
+. "`dirname $0`/doctum-defaults"
+
+@DOCTUM_ENV_SETTINGS@
+DOCTUM_BUILD_LOCK=${DOCTUM_BUILD_LOCK:-$DEFAULT_DOCTUM_BUILD_LOCK}

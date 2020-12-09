@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+#############################################################################
+# NOTE: FILE GENERATED AUTOMATICALLY, DO NOT EDIT!!!
+#############################################################################
+
+
+set -e
+
+# Environment variables used by several scripts of the php-tailors/doctum docker
+# image. You should source it from every shell script that refer these
+# variables.
+
+. "`dirname $0`/doctum-defaults"
+
+TLR_CODE=${TLR_CODE-$DEFAULT_TLR_CODE}
+DOCTUM_CONFIG=${DOCTUM_CONFIG-$DEFAULT_DOCTUM_CONFIG}
+DOCTUM_PROJECT_TITLE=${DOCTUM_PROJECT_TITLE-$DEFAULT_DOCTUM_PROJECT_TITLE}
+DOCTUM_SOURCE_DIR=${DOCTUM_SOURCE_DIR-$DEFAULT_DOCTUM_SOURCE_DIR}
+DOCTUM_BUILD_DIR=${DOCTUM_BUILD_DIR-$DEFAULT_DOCTUM_BUILD_DIR}
+DOCTUM_CACHE_DIR=${DOCTUM_CACHE_DIR-$DEFAULT_DOCTUM_CACHE_DIR}
+DOCTUM_FLAGS=${DOCTUM_FLAGS-$DEFAULT_DOCTUM_FLAGS}
+DOCTUM_SERVER_PORT=${DOCTUM_SERVER_PORT-$DEFAULT_DOCTUM_SERVER_PORT}
+DOCTUM_SOURCE_REGEX=${DOCTUM_SOURCE_REGEX-$DEFAULT_DOCTUM_SOURCE_REGEX}
+DOCTUM_THEME=${DOCTUM_THEME-$DEFAULT_DOCTUM_THEME}
+DOCTUM_BUILD_LOCK=${DOCTUM_BUILD_LOCK:-$DEFAULT_DOCTUM_BUILD_LOCK}

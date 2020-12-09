@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+@GENERATED_WARNING@
+
+set -e
+
+. "`dirname $0`/doctum-env"
+
+build_once
+
+echo "Starting API doc server in $DOCTUM_BUILD_DIR."
+echo "Serving documentation at http://localhost:${DOCTUM_SERVER_PORT}."
+exec php -S "0.0.0.0:$DOCTUM_SERVER_PORT" -t "$DOCTUM_BUILD_DIR"

@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+@GENERATED_WARNING@
+
+set -e
+
+trap "" PIPE;
+
+. "`dirname $0`/doctum-env"
+
+EVENTS="-e modify -e move -e move_self -e create -e delete"
+FORMAT="%w%f"
+
+build_once
+
+(xargs inotifywait -m -q $EVENTS --format "$FORMAT" -r `echo "$DOCTUM_SOURCE_DIR" | sed -e 's/:/ /g'`) | \
+while read F; do
+  if echo $F | grep -qe "$DOCTUM_SOURCE_REGEX"; then
+    build || true # build may fail, but we must be permissive ...
+  fi
+done

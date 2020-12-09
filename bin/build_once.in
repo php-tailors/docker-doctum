@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+@GENERATED_WARNING@
+
+set -e
+
+. "`dirname $0`/doctum-env"
+
+uid=`id -u`
+if [ ! -f "/tmp/doctum-built-once" ]; then
+  build && touch "/tmp/doctum-built-once"
+fi

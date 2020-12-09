@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+@GENERATED_WARNING@
+
+# Default values for environment variables used by several scripts
+# of the php-tailors/doctum docker image.
+
+@DOCTUM_ENV_DEFAULTS@
+DEFAULT_DOCTUM_BUILD_LOCK='/tmp/doctum-build.lock'

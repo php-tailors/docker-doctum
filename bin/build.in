@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+@GENERATED_WARNING@
+
+set -e
+
+. "`dirname $0`/doctum-env"
+
+(
+  flock -x 200
+  doctum update $DOCTUM_FLAGS "$DOCTUM_CONFIG"
+) 200>"$DOCTUM_BUILD_LOCK"

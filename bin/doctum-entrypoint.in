@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+@GENERATED_WARNING@
+
+set -e
+
+rm -f "/tmp/doctum-built-once"
+
+exec "$@@"
