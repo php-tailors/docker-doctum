@@ -12,7 +12,7 @@ ARG DOCTUM_PROJECT_TITLE='API Documentation'
 ARG DOCTUM_SOURCE_DIR='src:packages/*'
 ARG DOCTUM_BUILD_DIR='docs/build/html/api'
 ARG DOCTUM_CACHE_DIR='docs/cache/html/api'
-ARG DOCTUM_FLAGS='-v --force'
+ARG DOCTUM_FLAGS='-v --force --ignore-parse-errors'
 ARG DOCTUM_SERVER_PORT=8001
 ARG DOCTUM_SOURCE_REGEX='\.\(php\|txt\|rst\)$'
 ARG DOCTUM_THEME='default'
@@ -45,8 +45,6 @@ ENV TLR_CODE=$TLR_CODE \
 RUN set -xe && \
   apk add --no-cache --update inotify-tools git && \
   curl -s -L -o /usr/local/bin/doctum.phar https://doctum.long-term.support/releases/latest/doctum.phar && \
-  echo '#!/bin/sh' > /usr/local/bin/doctum && echo 'php /usr/local/bin/doctum.phar "$@"' >> /usr/local/bin/doctum && \
-  chmod a+x /usr/local/bin/doctum && \
   mkdir -p "`dirname \"${DOCTUM_CONFIG}\"`"
 
 COPY bin/* /usr/local/bin/

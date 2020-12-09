@@ -23,7 +23,7 @@ def sami_params(php, os):
             'DOCTUM_SOURCE_DIR': 'src:packages/*',
             'DOCTUM_BUILD_DIR': 'docs/build/html/api',
             'DOCTUM_CACHE_DIR': 'docs/cache/html/api',
-            'DOCTUM_FLAGS': '-v --force',
+            'DOCTUM_FLAGS': '-v --force --ignore-parse-errors',
             'DOCTUM_SERVER_PORT': 8001,
             'DOCTUM_SOURCE_REGEX': r'\.\(php\|txt\|rst\)$',
             'DOCTUM_THEME': 'default'}
@@ -69,6 +69,7 @@ def context_files(php, os):
             'bin/autoserve.in': 'bin/autoserve',
             'bin/build.in': 'bin/build',
             'bin/build_once.in': 'bin/build_once',
+            'bin/doctum.in': 'bin/doctum',
             'bin/doctum-defaults.in': 'bin/doctum-defaults',
             'bin/doctum-entrypoint.in': 'bin/doctum-entrypoint',
             'bin/doctum-env.in': 'bin/doctum-env',

@@ -4,9 +4,4 @@
 
 set -e
 
-build_once
-
-serve &
-autobuild &
-
-wait
+exec php "`dirname $0`/doctum.phar" "$@@"

@@ -7,8 +7,4 @@
 
 set -e
 
-. "`dirname $0`/doctum-env"
-
-if [ ! -f "/tmp/doctum-built-once" ]; then
-  build && touch "/tmp/doctum-built-once"
-fi
+exec php "`dirname $0`/doctum.phar" "$@"

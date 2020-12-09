@@ -138,18 +138,18 @@ to adjust the container to your needs is to set environment variables (`-e`
 flag to [docker](https://docker.com/)).  `TLR_CODE` is an exception, it must be
 defined at build time, so it may only be changed via docker's build arguments.
 
-| Argument               | Default Value                | Description                                            |
-| ---------------------- | ---------------------------- | ------------------------------------------------------ |
-| TLR\_CODE              | /code                        | Volume mount point and default working directory.      |
-| DOCTUM\_CONFIG         | /etc/doctum/doctum.conf.php  | Path to the config file for doctum.                    |
-| DOCTUM\_PROJECT\_TITLE | API Documentation            | Title for the generated documentation.                 |
-| DOCTUM\_SOURCE\_DIR    | src:packages                 | Colon-separated directories with the PHP source files. |
-| DOCTUM\_BUILD\_DIR     | docs/build/html/api          | Where to output the generated documentation.           |
-| DOCTUM\_CACHE\_DIR     | docs/cache/html/api          | Where to write cache files.                            |
-| DOCTUM\_FLAGS          | -v --force                   | Commandline flags passed to doctum.                    |
-| DOCTUM\_SERVER\_PORT   | 8001                         | Port numer (within container) for the http server.     |
-| DOCTUM\_SOURCE\_REGEX  | `\.\(php\\|txt\\|rst\)$`     | Regular expression for source files' discovery.        |
-| DOCTUM\_THEME          | default                      | Doctum theme.                                          |
+| Argument               | Default Value                    | Description                                            |
+| ---------------------- | -------------------------------- | ------------------------------------------------------ |
+| TLR\_CODE              | /code                            | Volume mount point and default working directory.      |
+| DOCTUM\_CONFIG         | /etc/doctum/doctum.conf.php      | Path to the config file for doctum.                    |
+| DOCTUM\_PROJECT\_TITLE | API Documentation                | Title for the generated documentation.                 |
+| DOCTUM\_SOURCE\_DIR    | src:packages                     | Colon-separated directories with the PHP source files. |
+| DOCTUM\_BUILD\_DIR     | docs/build/html/api              | Where to output the generated documentation.           |
+| DOCTUM\_CACHE\_DIR     | docs/cache/html/api              | Where to write cache files.                            |
+| DOCTUM\_FLAGS          | -v --force --ignore-parse-errors | Commandline flags passed to doctum.                    |
+| DOCTUM\_SERVER\_PORT   | 8001                             | Port numer (within container) for the http server.     |
+| DOCTUM\_SOURCE\_REGEX  | `\.\(php\\|txt\\|rst\)$`         | Regular expression for source files' discovery.        |
+| DOCTUM\_THEME          | default                          | Doctum theme.                                          |
 
 ### Software included
 

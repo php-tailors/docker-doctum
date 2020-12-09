@@ -24,8 +24,6 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
 RUN set -xe && \
   apk add --no-cache --update inotify-tools git && \
   curl -s -L -o /usr/local/bin/doctum.phar https://doctum.long-term.support/releases/latest/doctum.phar && \
-  echo '#!/bin/sh' > /usr/local/bin/doctum && echo 'php /usr/local/bin/doctum.phar "$@@"' >> /usr/local/bin/doctum && \
-  chmod a+x /usr/local/bin/doctum && \
   mkdir -p "`dirname \"${DOCTUM_CONFIG}\"`"
 
 COPY bin/* /usr/local/bin/
