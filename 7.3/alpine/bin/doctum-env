@@ -7,7 +7,7 @@
 
 set -e
 
-# Environment variables used by several scripts of the php-tailors/doctum docker
+# Environment variables used by several scripts of the phptailors/doctum docker
 # image. You should source it from every shell script that refer these
 # variables.
 

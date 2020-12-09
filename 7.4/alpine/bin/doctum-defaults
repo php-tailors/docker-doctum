@@ -6,7 +6,7 @@
 
 
 # Default values for environment variables used by several scripts
-# of the php-tailors/doctum docker image.
+# of the phptailors/doctum docker image.
 
 DEFAULT_TLR_CODE='/code'
 DEFAULT_DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'

@@ -1,16 +1,16 @@
-# php-tailors/docker-doctum
+# phptailors/docker-doctum
 
-[![](https://img.shields.io/docker/stars/php-tailors/doctum.svg)](https://hub.docker.com/r/php-tailors/doctum/ "Docker Stars")
-[![](https://img.shields.io/docker/pulls/php-tailors/doctum.svg)](https://hub.docker.com/r/php-tailors/doctum/ "Docker Pulls")
+[![](https://img.shields.io/docker/stars/phptailors/doctum.svg)](https://hub.docker.com/r/phptailors/doctum/ "Docker Stars")
+[![](https://img.shields.io/docker/pulls/phptailors/doctum.svg)](https://hub.docker.com/r/phptailors/doctum/ "Docker Pulls")
 
 Docker container with [doctum](https://github.com/code-lts/doctum/)
 documentation generator.
 
 ## Image versions
 
-  - [![](https://images.microbadger.com/badges/version/php-tailors/doctum.svg)](https://microbadger.com/images/php-tailors/doctum "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/php-tailors/doctum.svg)](https://microbadger.com/images/php-tailors/doctum "Get your own image badge on microbadger.com")
-  - [![](https://images.microbadger.com/badges/version/php-tailors/doctum:7.2-alpine.svg)](https://microbadger.com/images/php-tailors/doctum:7.2-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/php-tailors/doctum:7.2-alpine.svg)](https://microbadger.com/images/php-tailors/doctum:7.2-alpine "Get your own image badge on microbadger.com")
-  - [![](https://images.microbadger.com/badges/version/php-tailors/doctum:7.1-alpine.svg)](https://microbadger.com/images/php-tailors/doctum:7.1-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/php-tailors/doctum:7.1-alpine.svg)](https://microbadger.com/images/php-tailors/doctum:7.1-alpine "Get your own image badge on microbadger.com")
+  - [![](https://images.microbadger.com/badges/version/phptailors/doctum.svg)](https://microbadger.com/images/phptailors/doctum "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum.svg)](https://microbadger.com/images/phptailors/doctum "Get your own image badge on microbadger.com")
+  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.2-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.2-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.2-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.2-alpine "Get your own image badge on microbadger.com")
+  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.1-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.1-alpine "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.1-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.1-alpine "Get your own image badge on microbadger.com")
 
 ## Features
 
@@ -43,7 +43,7 @@ user@pc:$ tree .
 Run it as follows
 
 ```console
-user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 php-tailors/doctum
+user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 phptailors/doctum
 ```
 
 ### Running with docker-compose
@@ -56,7 +56,7 @@ version: '3'
 services:
    # ...
    doctum:
-      image: php-tailors/doctum
+      image: phptailors/doctum
       ports:
          - "8001:8001"
       volumes:
@@ -95,7 +95,7 @@ Several parameters can be changed via environment variables, for example we can
 change build to ``build/docs/api`` dir as follows
 
 ```console
-user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -e DOCTUM_BUILD_DIR=build/docs/api php-tailors/doctum
+user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -e DOCTUM_BUILD_DIR=build/docs/api phptailors/doctum
 ```
 
 ## Details
