@@ -132,7 +132,7 @@ user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -u "`id -u`:`id -g`
       - `doctum-env` - initializes `DOCTUM_xxx` variables,
       - `doctum-entrypoint` - provides an entry point for docker.
 
-#### In `/etc`
+#### In `/etc/doctum`
 
   - `doctum.conf.php` - default configuration file for doctum.
 
