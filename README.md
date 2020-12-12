@@ -46,7 +46,7 @@ user@pc:$ tree .
 Run it as follows
 
 ```console
-user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 phptailors/doctum
+user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -u "`id -u`:`id -g`" phptailors/doctum
 ```
 
 ### Running with docker-compose
@@ -64,12 +64,16 @@ services:
          - "8001:8001"
       volumes:
          - ./:/code
+      user: "${MYUID:-1000}:${MYGID:-1000}"
+      environment:
+        - MYUID
+        - MYGID
 ```
 
 Then run
 
 ```console
-user@pc:$ docker-compose up doctum
+user@pc:$ MYUID=`id -u` MYGID=`id -g` docker-compose up doctum
 ```
 
 ### Results
@@ -98,7 +102,7 @@ Several parameters can be changed via environment variables, for example we can
 change build to ``build/docs/api`` dir as follows
 
 ```console
-user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -e DOCTUM_BUILD_DIR=build/docs/api phptailors/doctum
+user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -u "`id -u`:`id -g`"  -e DOCTUM_BUILD_DIR=build/docs/api phptailors/doctum
 ```
 
 ## Details
@@ -147,7 +151,7 @@ defined at build time, so it may only be changed via docker's build arguments.
 | TLR\_CODE              | /code                            | Volume mount point and default working directory.      |
 | DOCTUM\_CONFIG         | /etc/doctum/doctum.conf.php      | Path to the config file for doctum.                    |
 | DOCTUM\_PROJECT\_TITLE | API Documentation                | Title for the generated documentation.                 |
-| DOCTUM\_SOURCE\_DIR    | src:packages                     | Colon-separated directories with the PHP source files. |
+| DOCTUM\_SOURCE\_DIR    | src                              | Colon-separated directories with the PHP source files. |
 | DOCTUM\_BUILD\_DIR     | docs/build/html/api              | Where to output the generated documentation.           |
 | DOCTUM\_CACHE\_DIR     | docs/cache/html/api              | Where to write cache files.                            |
 | DOCTUM\_FLAGS          | -v --force --ignore-parse-errors | Commandline flags passed to doctum.                    |

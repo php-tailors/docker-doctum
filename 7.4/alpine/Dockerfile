@@ -9,7 +9,7 @@ MAINTAINER Paweł Tomulik <ptomulik@meil.pw.edu.pl>
 ARG TLR_CODE='/code'
 ARG DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'
 ARG DOCTUM_PROJECT_TITLE='API Documentation'
-ARG DOCTUM_SOURCE_DIR='src:packages/*'
+ARG DOCTUM_SOURCE_DIR='src'
 ARG DOCTUM_BUILD_DIR='docs/build/html/api'
 ARG DOCTUM_CACHE_DIR='docs/cache/html/api'
 ARG DOCTUM_FLAGS='-v --force --ignore-parse-errors'

@@ -1,6 +1,6 @@
 import itertools
 
-__version__ = '0.1.3'
+__version__ = '0.2.0'
 
 def xrepr(arg):
     if isinstance(arg, str):
@@ -20,7 +20,7 @@ def sami_params(php, os):
     return {'TLR_CODE': '/code',
             'DOCTUM_CONFIG': '/etc/doctum/doctum.conf.php',
             'DOCTUM_PROJECT_TITLE': 'API Documentation',
-            'DOCTUM_SOURCE_DIR': 'src:packages/*',
+            'DOCTUM_SOURCE_DIR': 'src',
             'DOCTUM_BUILD_DIR': 'docs/build/html/api',
             'DOCTUM_CACHE_DIR': 'docs/cache/html/api',
             'DOCTUM_FLAGS': '-v --force --ignore-parse-errors',

@@ -10,7 +10,7 @@ function env($var, $default=false)
   return $env ? $env : $default;
 }
 
-$srcdir = env('DOCTUM_SOURCE_DIR', 'src:packages/*');
+$srcdir = env('DOCTUM_SOURCE_DIR', 'src');
 $builddir = env('DOCTUM_BUILD_DIR', 'docs/build/html/api');
 $cachedir = env('DOCTUM_CACHE_DIR', 'docs/cache/html/api');
 $title = env('DOCTUM_PROJECT_TITLE', 'API Documentation');

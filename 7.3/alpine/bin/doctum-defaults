@@ -11,7 +11,7 @@
 DEFAULT_TLR_CODE='/code'
 DEFAULT_DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'
 DEFAULT_DOCTUM_PROJECT_TITLE='API Documentation'
-DEFAULT_DOCTUM_SOURCE_DIR='src:packages/*'
+DEFAULT_DOCTUM_SOURCE_DIR='src'
 DEFAULT_DOCTUM_BUILD_DIR='docs/build/html/api'
 DEFAULT_DOCTUM_CACHE_DIR='docs/cache/html/api'
 DEFAULT_DOCTUM_FLAGS='-v --force --ignore-parse-errors'
