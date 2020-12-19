@@ -48,7 +48,7 @@ RUN set -xe && \
   apk add --no-cache --update inotify-tools git && \
   curl -s -L -o /tmp/doctum.phar https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar && \
   curl -s -L -o /tmp/doctum.sha256 https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar.sha256 && \
-  sha256sum -s -c -w /tmp/doctum.sha256 && \
+  (cd /tmp && sha256sum -s -c -w doctum.sha256) && \
   mv /tmp/doctum.phar /usr/local/bin/doctum && \
   rm -f /tmp/doctum.sha256 && \
   chmod +x /usr/local/bin/doctum && \
