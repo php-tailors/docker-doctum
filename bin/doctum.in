@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-@GENERATED_WARNING@
-
-set -e
-
-exec php "`dirname $0`/doctum.phar" "$@@"

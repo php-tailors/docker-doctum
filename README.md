@@ -8,12 +8,12 @@ documentation generator.
 
 ## Image versions
 
-  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.4-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.4-alpine "Get your own version badge on microbadger.com")
-    [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.4-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.4-alpine "Get your own image badge on microbadger.com")
-    [![](https://images.microbadger.com/badges/commit/phptailors/doctum:7.4-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.4-alpine "Get your own commit badge on microbadger.com") (latest)
-  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:7.3-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.3-alpine "Get your own version badge on microbadger.com")
-    [![](https://images.microbadger.com/badges/image/phptailors/doctum:7.3-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.3-alpine "Get your own image badge on microbadger.com")
-    [![](https://images.microbadger.com/badges/commit/phptailors/doctum:7.3-alpine.svg)](https://microbadger.com/images/phptailors/doctum:7.3-alpine "Get your own commit badge on microbadger.com")
+  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Get your own version badge on microbadger.com")
+    [![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Get your own image badge on microbadger.com")
+    [![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Get your own commit badge on microbadger.com") (latest)
+  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:5.3-php8.0.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php8.0 "Get your own version badge on microbadger.com")
+    [![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php8.0.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php8.0 "Get your own image badge on microbadger.com")
+    [![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php8.0.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php8.0 "Get your own commit badge on microbadger.com")
 
 ## Features
 

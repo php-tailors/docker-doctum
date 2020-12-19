@@ -9,6 +9,7 @@
 # of the phptailors/doctum docker image.
 
 DEFAULT_TLR_CODE='/code'
+DEFAULT_DOCTUM_VERSION='5.3-dev'
 DEFAULT_DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'
 DEFAULT_DOCTUM_PROJECT_TITLE='API Documentation'
 DEFAULT_DOCTUM_SOURCE_DIR='src'

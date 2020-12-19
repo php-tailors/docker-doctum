@@ -2,11 +2,12 @@
 # NOTE: FILE GENERATED AUTOMATICALLY, DO NOT EDIT!!!
 #############################################################################
 
-FROM php:7.3-alpine
+FROM php:8.0-alpine
 
 MAINTAINER Paweł Tomulik <ptomulik@meil.pw.edu.pl>
 
 ARG TLR_CODE='/code'
+ARG DOCTUM_VERSION='5.3-dev'
 ARG DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'
 ARG DOCTUM_PROJECT_TITLE='API Documentation'
 ARG DOCTUM_SOURCE_DIR='src'
@@ -32,6 +33,7 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
 
 
 ENV TLR_CODE=$TLR_CODE \
+    DOCTUM_VERSION=$DOCTUM_VERSION \
     DOCTUM_CONFIG=$DOCTUM_CONFIG \
     DOCTUM_PROJECT_TITLE=$DOCTUM_PROJECT_TITLE \
     DOCTUM_SOURCE_DIR=$DOCTUM_SOURCE_DIR \
@@ -44,7 +46,12 @@ ENV TLR_CODE=$TLR_CODE \
 
 RUN set -xe && \
   apk add --no-cache --update inotify-tools git && \
-  curl -s -L -o /usr/local/bin/doctum.phar https://doctum.long-term.support/releases/latest/doctum.phar && \
+  curl -s -L -o /tmp/doctum.phar https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar && \
+  curl -s -L -o /tmp/doctum.sha256 https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar.sha256 && \
+  sha256sum -s -c -w /tmp/doctum.sha256 && \
+  mv /tmp/doctum.phar /usr/local/bin/doctum && \
+  rm -f /tmp/doctum.sha256 && \
+  chmod +x /usr/local/bin/doctum && \
   mkdir -p "`dirname \"${DOCTUM_CONFIG}\"`"
 
 COPY bin/* /usr/local/bin/
