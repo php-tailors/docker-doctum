@@ -46,8 +46,8 @@ ENV TLR_CODE=$TLR_CODE \
 
 RUN set -xe && \
   apk add --no-cache --update inotify-tools git && \
-  curl -s -L -o /tmp/doctum.phar https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar && \
-  curl -s -L -o /tmp/doctum.sha256 https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar.sha256 && \
+  curl -s -S -L -o /tmp/doctum.phar https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar && \
+  curl -s -S -L -o /tmp/doctum.sha256 https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar.sha256 && \
   (cd /tmp && sha256sum -s -c -w doctum.sha256) && \
   mv /tmp/doctum.phar /usr/local/bin/doctum && \
   rm -f /tmp/doctum.sha256 && \

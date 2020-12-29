@@ -16,15 +16,6 @@ $cachedir = env('DOCTUM_CACHE_DIR', '@DOCTUM_CACHE_DIR@');
 $title = env('DOCTUM_PROJECT_TITLE', '@DOCTUM_PROJECT_TITLE@');
 $theme = env('DOCTUM_THEME', '@DOCTUM_THEME@');
 
-// the following workarounds https://github.com/code-lts/doctum/issues/18
-$filesystem = new Filesystem();
-if (!$filesystem->isAbsolutePath($builddir)) {
-    $builddir = getcwd() . \DIRECTORY_SEPARATOR . $builddir;
-}
-if (!$filesystem->isAbsolutePath($cachedir)) {
-    $cachedir = getcwd() . \DIRECTORY_SEPARATOR . $cachedir;
-}
-
 
 $iterator = Finder::create()
   ->files()

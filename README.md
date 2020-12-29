@@ -11,9 +11,6 @@ documentation generator.
   - [![](https://images.microbadger.com/badges/version/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Get your own version badge on microbadger.com")
     [![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Get your own image badge on microbadger.com")
     [![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Get your own commit badge on microbadger.com") (latest)
-  - [![](https://images.microbadger.com/badges/version/phptailors/doctum:5.3-php8.0.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php8.0 "Get your own version badge on microbadger.com")
-    [![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php8.0.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php8.0 "Get your own image badge on microbadger.com")
-    [![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php8.0.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php8.0 "Get your own commit badge on microbadger.com")
 
 ## Features
 
