@@ -7,7 +7,7 @@ FROM php:7.4-alpine
 MAINTAINER Paweł Tomulik <ptomulik@meil.pw.edu.pl>
 
 ARG TLR_CODE='/code'
-ARG DOCTUM_VERSION='5.3-dev'
+ARG DOCTUM_VERSION='5.3'
 ARG DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'
 ARG DOCTUM_PROJECT_TITLE='API Documentation'
 ARG DOCTUM_SOURCE_DIR='src'

@@ -1,7 +1,7 @@
 import itertools
 import re
 
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 
 def xrepr(arg):
     if isinstance(arg, str):
@@ -90,5 +90,5 @@ def context(ver, php):
             'subst': context_subst(ver, php)}
 
 contexts = [ context(ver, php) for (ver, php) in [
-        ('5.3-dev', '7.4'),
+        ('5.3', '7.4'),
 ]]
