@@ -15,7 +15,7 @@ documentation generator.
 [![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Docker image size")
 [![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Source code")
 
-- **aliases**: 5.3, 5, latest
+- **aliases**: 5-php7.4, latest-php7.4, 5.3, 5, latest
 
 
 ### 5.3-php7.3
@@ -24,11 +24,17 @@ documentation generator.
 [![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php7.3.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.3 "Docker image size")
 [![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php7.3.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.3 "Source code")
 
+- **aliases**: 5-php7.3, latest-php7.3
+
+
 ### 5.3-php7.2
 
 [![](https://images.microbadger.com/badges/version/phptailors/doctum:5.3-php7.2.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.2 "phptailors/doctum:5.3-php7.2")
 [![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php7.2.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.2 "Docker image size")
 [![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php7.2.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.2 "Source code")
+
+- **aliases**: 5-php7.2, latest-php7.2
+
 
 ## Features
 

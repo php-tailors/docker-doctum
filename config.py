@@ -1,6 +1,6 @@
 import re
 
-__version__ = '0.5.0'
+__version__ = '0.6.0'
 
 def xrepr(arg):
     if isinstance(arg, str):
@@ -39,12 +39,12 @@ def doctum_env_settings_str(ver, php):
     params = list(doctum_params(ver, php))
     return '\n'.join(('%s=${%s-$DEFAULT_%s}' % (k, k, k) for k in params))
 
-def doctum_versions():
-    versions = [ ver for (ver, php) in matrix ]
+def doctum_versions(php):
+    versions = [ ver for (ver, p) in matrix if p == php ]
     return sorted(list(set(versions)))
 
-def php_versions():
-    versions = [ php for (ver, php) in matrix ]
+def php_versions(ver):
+    versions = [ php for (v, php) in matrix if v == ver ]
     return sorted(list(set(versions)))
 
 def docker_doctum_args_str(ver, php):
@@ -61,10 +61,14 @@ def tag_aliases(ver, php):
     aliases = []
     maj = make_tag(ver.split('.')[0])
 
-    if php_versions()[-1] == php:
+    if doctum_versions(php)[-1] == ver:
+        aliases.append(make_tag(maj, php))
+        aliases.append(make_tag('latest', php))
+
+    if php_versions(ver)[-1] == php:
         aliases.append(make_tag(ver))
-        aliases.append(make_tag(maj))
-        if doctum_versions()[-1] == ver:
+        if doctum_versions(php)[-1] == ver:
+            aliases.append(make_tag(maj))
             aliases.append(make_tag('latest'))
 
     return aliases
@@ -108,6 +112,9 @@ def make_tag(ver=None, php=None, sep='-'):
 
 def context_tag(ver, php):
     return make_tag(ver, php, '-')
+
+def context_tags(ver, php):
+    return [context_tag(ver, php)] + tag_aliases(ver, php)
 
 
 def context_dir(ver, php):
