@@ -1,6 +1,6 @@
 import re
 
-__version__ = '0.6.1'
+__version__ = '0.6.0'
 
 def xrepr(arg):
     if isinstance(arg, str):
