@@ -8,7 +8,7 @@ set -e
 # image. You should source it from every shell script that refer these
 # variables.
 
-. "`dirname $0`/doctum-defaults"
+. "/usr/local/bin/doctum-defaults"
 
 @DOCTUM_ENV_SETTINGS@
-DOCTUM_BUILD_LOCK=${DOCTUM_BUILD_LOCK:-$DEFAULT_DOCTUM_BUILD_LOCK}
+export DOCTUM_BUILD_LOCK=${DOCTUM_BUILD_LOCK:-$DEFAULT_DOCTUM_BUILD_LOCK}

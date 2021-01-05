@@ -6,8 +6,6 @@ set -e
 
 trap "" PIPE;
 
-. "`dirname $0`/doctum-env"
-
 EVENTS="-e modify -e move -e move_self -e create -e delete"
 FORMAT="%w%f"
 

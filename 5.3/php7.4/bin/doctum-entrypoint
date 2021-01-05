@@ -9,4 +9,6 @@ set -e
 
 rm -f "/tmp/doctum-built-once"
 
+. "/usr/local/bin/doctum-env"
+
 exec "$@"

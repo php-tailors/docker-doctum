@@ -17,8 +17,7 @@ def generated_warning():
 
 def doctum_params(ver, php):
     """Configuration parameters for doctum with their default values"""
-    return {'TLR_CODE': '/code',
-            'DOCTUM_VERSION': ver,
+    return {'DOCTUM_WORKDIR': '/code',
             'DOCTUM_CONFIG': '/etc/doctum/doctum.conf.php',
             'DOCTUM_PROJECT_TITLE': 'API Documentation',
             'DOCTUM_SOURCE_DIR': 'src',
@@ -27,25 +26,49 @@ def doctum_params(ver, php):
             'DOCTUM_FLAGS': '-v --force --ignore-parse-errors',
             'DOCTUM_SERVER_PORT': 8001,
             'DOCTUM_SOURCE_REGEX': r'\.\(php\|txt\|rst\)$',
-            'DOCTUM_THEME': 'default'}
+            'DOCTUM_THEME': 'default',
+            'DOCTUM_PHAR_URL': doctum_phar_url(ver),
+            'DOCTUM_PHAR_SHA256_URL': doctum_phar_sha256_url(ver)}
 
+def doctum_runtime_params(ver, php):
+    """Configuration parameters that may be modified at runtime"""
+    items = doctum_params(ver, php).items()
+    exclude = set([
+        'DOCTUM_WORKDIR',
+        'DOCTUM_SERVER_PORT',
+        'DOCTUM_VERSION',
+        'DOCTUM_PHAR_URL',
+        'DOCTUM_PHAR_SHA256_URL',
+    ])
+    return {k: v for (k, v) in items if k not in exclude}
 
 def doctum_env_defaults_str(ver, php):
-    items = doctum_params(ver, php).items()
+    items = doctum_runtime_params(ver, php).items()
     return '\n'.join(("DEFAULT_%s=%s" % (k, xrepr(v)) for k, v in items))
 
 
 def doctum_env_settings_str(ver, php):
-    params = list(doctum_params(ver, php))
-    return '\n'.join(('%s=${%s-$DEFAULT_%s}' % (k, k, k) for k in params))
+    params = list(doctum_runtime_params(ver, php))
+    return '\n'.join(('export %s=${%s-$DEFAULT_%s}' % (k, k, k) for k in params))
+
 
 def doctum_versions(php):
     versions = [ ver for (ver, p) in matrix if p == php ]
     return sorted(list(set(versions)))
 
+
 def php_versions(ver):
     versions = [ php for (v, php) in matrix if v == ver ]
     return sorted(list(set(versions)))
+
+
+def doctum_phar_url(ver):
+    return doctum_releases[ver]['downloads']['phar']
+
+
+def doctum_phar_sha256_url(ver):
+    return doctum_releases[ver]['downloads']['phar_sha256']
+
 
 def docker_doctum_args_str(ver, php):
     items = doctum_params(ver, php).items()
@@ -53,7 +76,7 @@ def docker_doctum_args_str(ver, php):
 
 
 def docker_doctum_env_str(ver, php):
-    params = list(doctum_params(ver, php))
+    params = list(doctum_runtime_params(ver, php))
     return 'ENV ' + ' \\\n    '.join(('%s=$%s' % (k, k) for k in params))
 
 
@@ -127,7 +150,7 @@ def context_from_tag(php, os, sep='-'):
 
 def context_files(ver, php):
     return {'Dockerfile.in': 'Dockerfile',
-            'etc/doctum.conf.php.in': 'etc/doctum.conf.php',
+            'etc/doctum/doctum.conf.php.in': 'etc/doctum/doctum.conf.php',
             'bin/autobuild.in': 'bin/autobuild',
             'bin/autoserve.in': 'bin/autoserve',
             'bin/build.in': 'bin/build',
@@ -149,7 +172,7 @@ def context_subst(ver, php):
         'DOCTUM_ENV_SETTINGS': doctum_env_settings_str(ver, php),
         'DOCKER_FROM_TAG': context_from_tag(php, 'alpine'),
         'DOCKER_DOCTUM_ARGS': docker_doctum_args_str(ver, php),
-        'DOCKER_DOCTUM_ENV': docker_doctum_env_str(ver, php)
+        'DOCKER_DOCTUM_ENV': docker_doctum_env_str(ver, php),
     }, **doctum_params(ver, php)))
 
 def global_subst():
@@ -174,6 +197,17 @@ matrix = [
     ('5.5', '8.1'),
     ('5.5', '8.2'),
 ]
+
+doctum_releases = {
+    '5.3': {
+        'downloads': {
+            'phar': 'https://github.com/code-lts/doctum/releases/download/v5.3.1/doctum.phar',
+            'phar_sha256': 'https://github.com/code-lts/doctum/releases/download/v5.3.1/doctum.phar.sha256',
+            'phar_asc': 'https://github.com/code-lts/doctum/releases/download/v5.3.1/doctum.phar.asc',
+            'phar_sha256_asc': 'https://github.com/code-lts/doctum/releases/download/v5.3.1/doctum.phar.sha256.asc',
+        }
+    }
+}
 
 contexts = [ context(ver, php) for (ver, php) in matrix ]
 

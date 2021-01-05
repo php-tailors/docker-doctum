@@ -1,0 +1,24 @@
+name: Update Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Release URL'
+        required: true
+        default: 'https://api.github.com/repos/code-lts/doctum/releases/latest'
+
+jobs:
+  main:
+    name: Verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: 'echo "inputs: ${{ toJson(github.event.inputs) }}"'
+      - uses: octokit/request-action@v2.x
+        id: get_release
+        with:
+          route: GET ${{ github.event.inputs.url }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "${{ toJson(steps.get_release.outputs.data) }}"
