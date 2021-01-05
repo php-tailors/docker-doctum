@@ -6,8 +6,7 @@ FROM php:7.4-alpine
 
 MAINTAINER Paweł Tomulik <ptomulik@meil.pw.edu.pl>
 
-ARG TLR_CODE='/code'
-ARG DOCTUM_VERSION='5.3'
+ARG DOCTUM_WORKDIR='/code'
 ARG DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'
 ARG DOCTUM_PROJECT_TITLE='API Documentation'
 ARG DOCTUM_SOURCE_DIR='src'
@@ -17,6 +16,8 @@ ARG DOCTUM_FLAGS='-v --force --ignore-parse-errors'
 ARG DOCTUM_SERVER_PORT=8001
 ARG DOCTUM_SOURCE_REGEX='\.\(php\|txt\|rst\)$'
 ARG DOCTUM_THEME='default'
+ARG DOCTUM_PHAR_URL='https://github.com/code-lts/doctum/releases/download/v5.3.1/doctum.phar'
+ARG DOCTUM_PHAR_SHA256_URL='https://github.com/code-lts/doctum/releases/download/v5.3.1/doctum.phar.sha256'
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -32,22 +33,19 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
       org.label-schema.schema-version="1.0"
 
 
-ENV TLR_CODE=$TLR_CODE \
-    DOCTUM_VERSION=$DOCTUM_VERSION \
-    DOCTUM_CONFIG=$DOCTUM_CONFIG \
+ENV DOCTUM_CONFIG=$DOCTUM_CONFIG \
     DOCTUM_PROJECT_TITLE=$DOCTUM_PROJECT_TITLE \
     DOCTUM_SOURCE_DIR=$DOCTUM_SOURCE_DIR \
     DOCTUM_BUILD_DIR=$DOCTUM_BUILD_DIR \
     DOCTUM_CACHE_DIR=$DOCTUM_CACHE_DIR \
     DOCTUM_FLAGS=$DOCTUM_FLAGS \
-    DOCTUM_SERVER_PORT=$DOCTUM_SERVER_PORT \
     DOCTUM_SOURCE_REGEX=$DOCTUM_SOURCE_REGEX \
     DOCTUM_THEME=$DOCTUM_THEME
 
 RUN set -xe && \
   apk add --no-cache --update inotify-tools git && \
-  curl -s -S -L -o /tmp/doctum.phar https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar && \
-  curl -s -S -L -o /tmp/doctum.sha256 https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar.sha256 && \
+  curl -s -S -L -o /tmp/doctum.phar ${DOCTUM_PHAR_URL} && \
+  curl -s -S -L -o /tmp/doctum.sha256 ${DOCTUM_PHAR_SHA256_URL} && \
   (cd /tmp && sha256sum -s -c -w doctum.sha256) && \
   mv /tmp/doctum.phar /usr/local/bin/doctum && \
   rm -f /tmp/doctum.sha256 && \
@@ -55,10 +53,10 @@ RUN set -xe && \
   mkdir -p "`dirname \"${DOCTUM_CONFIG}\"`"
 
 COPY bin/* /usr/local/bin/
-COPY etc/doctum.conf.php /etc/doctum/
+COPY etc/doctum/* /etc/doctum/
 
-VOLUME ${TLR_CODE}
-WORKDIR ${TLR_CODE}
+VOLUME ${DOCTUM_WORKDIR}
+WORKDIR ${DOCTUM_WORKDIR}
 
 ENTRYPOINT [ "doctum-entrypoint" ]
 CMD [ "autoserve" ]

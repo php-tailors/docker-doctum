@@ -23,8 +23,8 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
 
 RUN set -xe && \
   apk add --no-cache --update inotify-tools git && \
-  curl -s -S -L -o /tmp/doctum.phar https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar && \
-  curl -s -S -L -o /tmp/doctum.sha256 https://doctum.long-term.support/releases/${DOCTUM_VERSION}/doctum.phar.sha256 && \
+  curl -s -S -L -o /tmp/doctum.phar ${DOCTUM_PHAR_URL} && \
+  curl -s -S -L -o /tmp/doctum.sha256 ${DOCTUM_PHAR_SHA256_URL} && \
   (cd /tmp && sha256sum -s -c -w doctum.sha256) && \
   mv /tmp/doctum.phar /usr/local/bin/doctum && \
   rm -f /tmp/doctum.sha256 && \
@@ -32,10 +32,10 @@ RUN set -xe && \
   mkdir -p "`dirname \"${DOCTUM_CONFIG}\"`"
 
 COPY bin/* /usr/local/bin/
-COPY etc/doctum.conf.php /etc/doctum/
+COPY etc/doctum/* /etc/doctum/
 
-VOLUME ${TLR_CODE}
-WORKDIR ${TLR_CODE}
+VOLUME ${DOCTUM_WORKDIR}
+WORKDIR ${DOCTUM_WORKDIR}
 
 ENTRYPOINT [ "doctum-entrypoint" ]
 CMD [ "autoserve" ]
