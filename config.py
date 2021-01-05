@@ -1,6 +1,6 @@
 import re
 
-__version__ = '0.4.2'
+__version__ = '0.5.0'
 
 def xrepr(arg):
     if isinstance(arg, str):
@@ -160,7 +160,9 @@ def context(ver, php):
 # ( doctum-version, php-version )
 #
 matrix = [
-    ('5.3', '7.4')
+    ('5.3', '7.2'),
+    ('5.3', '7.3'),
+    ('5.3', '7.4'),
 ]
 
 contexts = [ context(ver, php) for (ver, php) in matrix ]
