@@ -8,15 +8,7 @@ documentation generator.
 
 ## Image versions
 
-
-### 5.3-php7.4
-
-[![](https://images.microbadger.com/badges/version/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "phptailors/doctum:5.3-php7.4")
-[![](https://images.microbadger.com/badges/image/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Docker image size")
-[![](https://images.microbadger.com/badges/commit/phptailors/doctum:5.3-php7.4.svg)](https://microbadger.com/images/phptailors/doctum:5.3-php7.4 "Source code")
-
-- **aliases**: 5.3, 5, latest
-
+@MICROBADGES@
 
 ## Features
 
@@ -36,7 +28,7 @@ that php source files are found under `src`, also we expect the documentation
 to be written-out somewhere under `docs`)
 
 ```console
-user@pc:$ tree .
+user@@pc:$ tree .
 .
 |-- docs
 `-- src
@@ -49,7 +41,7 @@ user@pc:$ tree .
 Run it as follows
 
 ```console
-user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -u "`id -u`:`id -g`" phptailors/doctum
+user@@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -u "`id -u`:`id -g`" phptailors/doctum
 ```
 
 ### Running with docker-compose
@@ -76,7 +68,7 @@ services:
 Then run
 
 ```console
-user@pc:$ MYUID=`id -u` MYGID=`id -g` docker-compose up doctum
+user@@pc:$ MYUID=`id -u` MYGID=`id -g` docker-compose up doctum
 ```
 
 ### Results
@@ -84,14 +76,14 @@ user@pc:$ MYUID=`id -u` MYGID=`id -g` docker-compose up doctum
 Whatever method you chose to run the container, you shall see two new directories
 
 ```console
-user@pc:$ ls -d docs/*
+user@@pc:$ ls -d docs/*
 docs/build docs/cache
 ```
 
 The documentation is written to `docs/build/html/api`
 
 ```console
-user@pc:$ find docs -name 'index.html'
+user@@pc:$ find docs -name 'index.html'
 docs/build/html/api/index.html
 ```
 
@@ -105,7 +97,7 @@ Several parameters can be changed via environment variables, for example we can
 change build to ``build/docs/api`` dir as follows
 
 ```console
-user@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -u "`id -u`:`id -g`"  -e DOCTUM_BUILD_DIR=build/docs/api phptailors/doctum
+user@@pc:$ docker run --rm -it -v "$(pwd):/code" -p 8001:8001 -u "`id -u`:`id -g`"  -e DOCTUM_BUILD_DIR=build/docs/api phptailors/doctum
 ```
 
 ## Details
@@ -170,7 +162,7 @@ defined at build time, so it may only be changed via docker's build arguments.
 
 ## LICENSE
 
-Copyright (c) 2020 by Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+Copyright (c) 2020 by Paweł Tomulik <ptomulik@@meil.pw.edu.pl>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
