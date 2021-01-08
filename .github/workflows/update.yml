@@ -30,4 +30,4 @@ jobs:
           owner: code-lts
           repo: doctum
           select: first 2
-      - run: echo "${{ steps.releases.outputs.releases }}"
+      - run: echo '${{ steps.releases.outputs.releases }}'
