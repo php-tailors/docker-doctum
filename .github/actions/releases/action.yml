@@ -1,0 +1,188 @@
+name: 'Get Releases'
+description: 'Get releases JSON from remote repository using GitHub API.'
+inputs:
+
+  # #########################################################################
+  # Personal GitHub token may be provided to perform authentication in order to
+  # avoid rate limiting and other GitHub restrictions that apply to anonymous
+  # users. If token is missing or empty, authentication is not performed.
+  # #########################################################################
+  token:
+    description: 'Personal token.'
+    required: false
+    default: ''
+
+  # #########################################################################
+  # Owner of the remote repository that is to be queried for its releases.
+  # #########################################################################
+  owner:
+    description: 'Repository owner.'
+    required: true
+
+  # #########################################################################
+  # Name of the remote repository that is to be queried for its releases.
+  # #########################################################################
+  repo:
+    description: 'Repository name.'
+    required: true
+
+  # #########################################################################
+  # GitHub API enforces pagination. The page size is settable, maximum page
+  # size is 100. Default page size is 30.
+  #
+  # Exampe:
+  #
+  # per_page: '23'
+  #
+  # #########################################################################
+  per_page:
+    description: 'Page size.'
+    required: false
+    default: ''
+
+  # #########################################################################
+  # Limits the number of entries that can be retrieved from the remote
+  # repository.
+  #
+  # Example:
+  #
+  # max_releases: '50'
+  #
+  # #########################################################################
+  max_entries:
+    description: 'Max number of entries retrieved from remote repository.'
+    required: false
+    default: ''
+
+  # #########################################################################
+  # Allows selecting releases whose names match given criteria.
+  #
+  # Examples:
+  #
+  # # allow any name,
+  # name: "*"
+  #
+  # # select release(s) with name == "specific"
+  # name: "specific"
+  #
+  # # select releases whose names match JS regular expession, the regular
+  # # expession may also contain flags
+  # name: "/^v?5.3.1$/"
+  # name: "/^latest$/i"
+  #
+  # #########################################################################
+  name:
+    description: 'String used to filter retrieved releases by name.'
+    required: false
+    default: '*'
+
+  # #########################################################################
+  # Allows selecting releases whose tag names match given criteria.
+  #
+  # Examples:
+  #
+  # # allow any tag_name,
+  # name: "*"
+  #
+  # # select release(s) with tag_name == "specific"
+  # name: "specific"
+  #
+  # # select releases whose tag names match JS regular expession, the regular
+  # # expession may also contain flags
+  # name: "/^v?5.3.1$/"
+  # name: "/^latest$/i"
+  #
+  # #########################################################################
+  tag_name:
+    description: 'String used to filter retrieved releases by tag_name.'
+    required: false
+    default: '*'
+
+  # #########################################################################
+  # Allows selecting draft/non-draft releases. Suported values are
+  #
+  # draft: 'false'
+  # draft: 'true'
+  # draft: '*'
+  #
+  # #########################################################################
+  draft:
+    description: 'Value used to filter retrieved releases by draft status.'
+    required: false
+    default: 'false'
+
+  # #########################################################################
+  # Allows selecting prereleases/non-prereleases. Suported values are
+  #
+  # prerelease: 'false'
+  # prerelease: 'true'
+  # prerelease: '*'
+  #
+  # #########################################################################
+  prerelease:
+    description: 'Value used to filter retrieved releases by prerelease status.'
+    required: false
+    default: 'false'
+
+  # #########################################################################
+  # Comma-separated list of property names, each optionally followed by order
+  # specifier - "ASC" or "DSC". Used to sort the resultant array.'
+  #
+  # Examples:
+  #
+  # sort: 'id'
+  # sort: 'id DSC'
+  # sort: 'draft = ASC, name = DSC'
+  # #########################################################################
+  sort:
+    description: 'List of properties used for sorting the retrieved releases.'
+    required: false
+    default: ''
+
+  # #########################################################################
+  # Default sort order. Allowed values are
+  #
+  # order: 'ASC'
+  # order: 'DSC'
+  # #########################################################################
+  order:
+    description: 'Default sort order.'
+    required: true
+    default: 'ASC'
+
+
+  # #########################################################################
+  # Determines the range of releases to be selected after sorting.
+  #
+  # # Select all
+  # select: 'all'
+  #
+  # # Select first entry
+  # select: 'first'
+  #
+  # # Select up to 3 first entries
+  # select: 'first 3'
+  #
+  # # Select last entry
+  # select: 'last'
+  #
+  # # Select up to 3 last entries
+  # select: 'last 3'
+  #
+  # # Select entries 2 to 4 (zero-based indices)
+  # select: '2 ... 4'
+  #
+  # # Select entries from 2 to end of array
+  # select: '2 ...'
+  #
+  # #########################################################################
+  select:
+    description: 'Final selection.'
+    required: true
+    default: 'all'
+outputs:
+  releases:
+    description: 'The resultant array of releases as json string.'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
