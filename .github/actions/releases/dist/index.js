@@ -5807,7 +5807,7 @@ function wrappy (fn, cb) {
 "use strict";
 
 
-const { Octokit, setOutput, setFailure } = __nccwpck_require__(186);
+const { Octokit, setOutput, setFailed } = __nccwpck_require__(186);
 const github = __nccwpck_require__(438);
 const { getInputs } = __nccwpck_require__(229);
 
