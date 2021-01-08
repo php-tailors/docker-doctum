@@ -7114,7 +7114,7 @@ class Processor {
 }
 
 
-const doRun = async function () {
+const run = function () {
   const inputs = getInputs();
   const octokit = new Octokit({
     auth: inputs.token,
@@ -7158,22 +7158,13 @@ const doRun = async function () {
     const ascii = Buffer.from(json).toString('base64');
     core.setOutput("json", json);
     core.setOutput("base64", ascii);
-  }).catch(error => {
-    if (error instanceof ValidationError) {
-      core.setFailed(error.message);
-    } else {
-      throw error;
-    }
+  }, (reason) => {
+    core.error(reason);
+    core.setFailed(reason);
+  }).catch((error) => {
+    core.setFailed(error.message);
   });
 }
-
-const run = async function () {
-  try {
-    await doRun();
-  } catch (error) {
-    core.setFailed(error.message);
-  }
-};
 
 
 module.exports = { run, Filter, Slicer, Processor };
@@ -7189,7 +7180,13 @@ module.exports = { run, Filter, Slicer, Processor };
 
 const core = __nccwpck_require__(186);
 
-class ValidationError extends Error { };
+class ValidationError extends Error {
+  static make(key, value) {
+    return new ValidationError(
+      `validation failed for input ${key}: ${JSON.stringify(value)}`
+    );
+  }
+};
 
 class InternalError extends Error { };
 
@@ -7208,7 +7205,7 @@ const validate = {
     const re = /^\s*(\d+|)\s*$/;
     const match = value.match(re);
     if (!match) {
-      throw new ValidationError(`${key}: ${JSON.stringify(value)}`);
+      throw ValidationError.make(key, value);
     }
     return (match[1] ? parseInt(match[1]) : null);
   },
@@ -7218,12 +7215,12 @@ const validate = {
     if (choices.hasOwnProperty(value)) {
       return choices[value];
     }
-    throw new ValidationError(`${key}: ${JSON.stringify(value)}`);
+    throw ValidationError.make(key, value);
   },
 
   testWithRegExp: function (re, value, key) {
     if (!re.test(value)) {
-      throw new ValidationError(`${key}: ${JSON.stringify(value)}`);
+      throw ValidationError.make(key, value);
     }
     return value;
   },
@@ -7245,7 +7242,7 @@ const validate = {
   per_page: function (value) {
     const num = this.intOrNull(value, 'per_page');
     if (num > 100) {
-      throw new ValidationError(`per_page: ${JSON.stringify(value)}`);
+      throw ValidationError.make('per_page', value);
     }
     return num;
   },
@@ -7303,7 +7300,7 @@ const validate = {
     for (const string of strings) {
       const match = string.match(re);
       if (!match) {
-        throw new ValidationError(`sort: ${JSON.stringify(value)}`);
+        throw ValidationError.make('sort', value);
       }
       const key = match[1].toLowerCase();
       const ord = (match[2] ? match[2] : defaultOrder).substring(0,1).toUpperCase();
@@ -7317,7 +7314,7 @@ const validate = {
     const match = value.match(re);
 
     if (!match) {
-      throw new ValidationError(`order: ${JSON.stringify(value)}`);
+      throw ValidationError.make('order', value);
     }
 
     return (match[1] ? match[1] : 'A').substring(0,1).toUpperCase();
@@ -7337,7 +7334,7 @@ const validate = {
     const match = value.match(re);
 
     if (!match) {
-      throw new ValidationError(`slice: ${JSON.stringify(value)}`);
+      throw ValidationError.make('slice', value);
     }
 
     const groups = match.groups;
