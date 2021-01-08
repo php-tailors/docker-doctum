@@ -7156,7 +7156,7 @@ const doRun = async function () {
     const processor = new Processor(inputs);
     const array = processor.process(data);
     const json = JSON.stringify(array);
-    const ascii = btoa(json);
+    const ascii = Buffer.from(json).toString('base64');
     core.setOutput("json", json);
     core.setOutput("base64", ascii);
   });
