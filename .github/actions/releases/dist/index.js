@@ -7149,7 +7149,7 @@ const doRun = async function () {
     octokit.repos.listReleases,
     params,
     ({ data }, done) => {
-      remains -= data.length();
+      remains -= data.length;
       if (remains <= 0) {
         done();
       } else if (params.per_page && remains < params.per_page) {
