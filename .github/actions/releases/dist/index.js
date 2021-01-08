@@ -7153,7 +7153,7 @@ const doRun = async function () {
       return data;
     }
   ).then((data) => {
-    const processor = new Processor(inputs);
+    const processor = new Processor(inputs1);
     const array = processor.process(data);
     const json = JSON.stringify(array);
     const ascii = Buffer.from(json).toString('base64');
