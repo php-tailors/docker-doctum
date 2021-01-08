@@ -5807,9 +5807,8 @@ function wrappy (fn, cb) {
 "use strict";
 
 
-const core = __nccwpck_require__(186);
+const { Octokit, setOutput, setFailure } = __nccwpck_require__(186);
 const github = __nccwpck_require__(438);
-const { Octokit } = __nccwpck_require__(785);
 const { getInputs } = __nccwpck_require__(229);
 
 class Filter {
@@ -5956,7 +5955,7 @@ const doRun = async function () {
   ).then((data) => {
     const pp = new Processor(inputs);
     const output = JSON.stringify(pp.process(data));
-    core.setOutput("releases", output);
+    setOutput("releases", output);
   });
 }
 
@@ -5964,7 +5963,7 @@ const run = async function () {
   try {
     await doRun();
   } catch (error) {
-    core.setFailed(error.message);
+    setFailed(error.message);
   }
 };
 
@@ -6194,14 +6193,6 @@ module.exports = { getInputs, validate, ValidationError, InternalError };
 const { run } = __nccwpck_require__(348);
 
 run();
-
-
-/***/ }),
-
-/***/ 785:
-/***/ ((module) => {
-
-module.exports = eval("require")("@octokit/rest");
 
 
 /***/ }),
