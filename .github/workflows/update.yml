@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - run: 'echo "inputs: ${{ toJson(github.event.inputs) }}"'
 ##      - uses: octokit/request-action@v2.x
 ##        id: doctum
