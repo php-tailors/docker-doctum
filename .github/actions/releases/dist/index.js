@@ -7152,7 +7152,7 @@ const run = function () {
       return data;
     }
   ).then((data) => {
-    const processor = new Processor(inputs1);
+    const processor = new Processor(inputs);
     const array = processor.process(data);
     const json = JSON.stringify(array);
     const ascii = Buffer.from(json).toString('base64');
@@ -7160,10 +7160,8 @@ const run = function () {
     core.setOutput("base64", ascii);
   }, (reason) => {
     core.error(reason);
-    core.setFailed(reason);
   }).catch((error) => {
-    core.error(error.stack);
-    core.setFailed(error.message);
+    core.setFailed(error.stack);
   });
 }
 
