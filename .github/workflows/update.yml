@@ -22,7 +22,7 @@ jobs:
 ##        env:
 ##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ##      - run: echo "${{ toJson(steps.doctum.outputs.data) }}"
-      - uses: '.github/actions/releases'
+      - uses: './.github/actions/releases'
         id: releases
         with:
           token: ${{ secrets.GET_RELEASES_TOKEN }}
