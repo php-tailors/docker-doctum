@@ -15,10 +15,17 @@ jobs:
 
     steps:
       - run: 'echo "inputs: ${{ toJson(github.event.inputs) }}"'
-      - uses: octokit/request-action@v2.x
-        id: get_release
+##      - uses: octokit/request-action@v2.x
+##        id: doctum
+##        with:
+##          route: GET ${{ github.event.inputs.url }}
+##        env:
+##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+##      - run: echo "${{ toJson(steps.doctum.outputs.data) }}"
+      - uses: pozetroninc/github-action-get-latest-release@master
+        id: doctum
         with:
-          route: GET ${{ github.event.inputs.url }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "${{ toJson(steps.get_release.outputs.data) }}"
+          owner: code-lts
+          repo: doctum
+          excludes: prerelease, draft
+      - run: echo "${{ toJson(steps.doctum.outputs.release.name) }}"
