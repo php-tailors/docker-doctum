@@ -7162,6 +7162,7 @@ const run = function () {
     core.error(reason);
     core.setFailed(reason);
   }).catch((error) => {
+    core.error(error.stack);
     core.setFailed(error.message);
   });
 }
