@@ -152,7 +152,7 @@ inputs:
 
 
   # #########################################################################
-  # Determines the range of releases to be selected after sorting.
+  # Determines the range of entries to be selected after sorting.
   #
   # # Select all
   # select: 'all'
@@ -176,8 +176,8 @@ inputs:
   # select: '2 ...'
   #
   # #########################################################################
-  select:
-    description: 'Final selection.'
+  slice:
+    description: 'The range of entries to be returned.'
     required: true
     default: 'all'
 outputs:

@@ -7012,7 +7012,7 @@ function wrappy (fn, cb) {
 
 
 const { Octokit } = __nccwpck_require__(375);
-const { setOutput, setFailed } = __nccwpck_require__(186);
+const core = __nccwpck_require__(186);
 const github = __nccwpck_require__(438);
 const { getInputs } = __nccwpck_require__(229);
 
@@ -7158,9 +7158,12 @@ const doRun = async function () {
       return data;
     }
   ).then((data) => {
-    const pp = new Processor(inputs);
-    const output = JSON.stringify(pp.process(data));
-    setOutput("releases", output);
+    const processor = new Processor(inputs);
+    const array = processor.process(data);
+    const json = JSON.stringify(array);
+    const ascii = btoa(json);
+    core.setOutput("json", json);
+    core.setOutput("base64", ascii);
   });
 }
 
@@ -7168,7 +7171,7 @@ const run = async function () {
   try {
     await doRun();
   } catch (error) {
-    setFailed(error.message);
+    core.setFailed(error.message);
   }
 };
 
@@ -7184,7 +7187,7 @@ module.exports = { run, Filter, Processor };
 "use strict";
 
 
-const { getInput } = __nccwpck_require__(186);
+const core = __nccwpck_require__(186);
 
 class ValidationError extends Error { };
 
@@ -7320,7 +7323,7 @@ const validate = {
     return (match[1] ? match[1] : 'A').substring(0,1).toUpperCase();
   },
 
-  select: function (value) {
+  slice: function (value) {
     const re = new RegExp(
       '^\\s*(' +
         '(?:(?<all>A)(?:LL)?)' +
@@ -7334,7 +7337,7 @@ const validate = {
     const match = value.match(re);
 
     if (!match) {
-      throw new ValidationError(`select: ${JSON.stringify(value)}`);
+      throw new ValidationError(`slice: ${JSON.stringify(value)}`);
     }
 
     const groups = match.groups;
@@ -7362,25 +7365,25 @@ const validate = {
     }
 
 
-    throw new InternalError(`select: ${JSON.stringify(value)}`);
+    throw new InternalError(`slice: ${JSON.stringify(value)}`);
   },
 };
 
 const getInputs = () => {
-  const order = validate.order(getInput('order'));
+  const order = validate.order(core.getInput('order'));
   return {
-    token:       validate.token(getInput('token')),
-    owner:       validate.owner(getInput('owner')),
-    repo:        validate.repo(getInput('repo')),
-    name:        validate.name(getInput('name')),
-    per_page:    validate.per_page(getInput('per_page')),
-    max_entries: validate.max_entries(getInput('max_entries')),
-    tag_name:    validate.tag_name(getInput('tag_name')),
-    draft:       validate.draft(getInput('draft')),
-    prerelease:  validate.prerelease(getInput('prerelease')),
-    sort:        validate.sort(getInput('sort'), order),
+    token:       validate.token(core.getInput('token')),
+    owner:       validate.owner(core.getInput('owner')),
+    repo:        validate.repo(core.getInput('repo')),
+    name:        validate.name(core.getInput('name')),
+    per_page:    validate.per_page(core.getInput('per_page')),
+    max_entries: validate.max_entries(core.getInput('max_entries')),
+    tag_name:    validate.tag_name(core.getInput('tag_name')),
+    draft:       validate.draft(core.getInput('draft')),
+    prerelease:  validate.prerelease(core.getInput('prerelease')),
+    sort:        validate.sort(core.getInput('sort'), order),
     order:       order,
-    select:      validate.select(getInput('select')),
+    slice:       validate.slice(core.getInput('slice')),
   };
 };
 
