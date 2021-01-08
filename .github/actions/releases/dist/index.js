@@ -7058,20 +7058,20 @@ class Filter {
   }
 }
 
-class Selector {
+class Slicer {
   constructor(inputs) {
-    const select = inputs.select;
-    const self = Selector;
-    switch(select.type) {
+    const slice = inputs.slice;
+    const self = Slicer;
+    switch(slice.type) {
       case 'F':
-        this.slice = self.first(select.count);
+        this.slice = self.first(slice.count);
         break;
       case 'L':
-        this.slice = (arr) => arr.slice(arr.length - select.count, arr.length);
+        this.slice = (arr) => arr.slice(arr.length - slice.count, arr.length);
         break;
       case 'R':
-        const from = select.from;
-        const to = select.to;
+        const from = slice.from;
+        const to = slice.to;
         this.slice = (arr) => to === null ? arr.slice(from) : arr.slice(from,1 + to);
         break;
       default:
@@ -7097,24 +7097,19 @@ class Selector {
             arr.slice(from) : arr.slice(from, 1 + to)
       );
   }
-
-  select(data) {
-      return this.slice(data);
-  }
 }
 
 class Processor {
 
   constructor(inputs) {
     this.filter = new Filter(inputs);
-    this.selector = new Selector(inputs);
+    this.slicer = new Slicer(inputs);
   }
 
   process(data) {
     data = data.filter(this.filter.callback);
-    data = this.selector.select(data);
+    data = this.slicer.slice(data);
     // TODO: sort
-    // TODO: select
     return data;
   }
 }
