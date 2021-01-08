@@ -7014,7 +7014,7 @@ function wrappy (fn, cb) {
 const { Octokit } = __nccwpck_require__(375);
 const core = __nccwpck_require__(186);
 const github = __nccwpck_require__(438);
-const { getInputs } = __nccwpck_require__(229);
+const { getInputs, ValidationError } = __nccwpck_require__(229);
 
 class Filter {
   constructor(inputs) {
@@ -7100,7 +7100,6 @@ class Slicer {
 }
 
 class Processor {
-
   constructor(inputs) {
     this.filter = new Filter(inputs);
     this.slicer = new Slicer(inputs);
@@ -7160,7 +7159,11 @@ const doRun = async function () {
     core.setOutput("json", json);
     core.setOutput("base64", ascii);
   }).catch(error => {
-    core.setFailed(error.message);
+    if (error instanceof ValidationError) {
+      core.setFailed(error.message);
+    } else {
+      throw error;
+    }
   });
 }
 
@@ -7173,7 +7176,7 @@ const run = async function () {
 };
 
 
-module.exports = { run, Filter, Processor };
+module.exports = { run, Filter, Slicer, Processor };
 
 
 /***/ }),
