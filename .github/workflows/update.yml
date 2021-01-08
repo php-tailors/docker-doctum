@@ -30,4 +30,7 @@ jobs:
           owner: code-lts
           repo: doctum
           select: first 2
-      - run: echo '${{ steps.releases.outputs.releases }}'
+      - run: |
+          "base64 -d <<'!'"
+          "${{ steps.releases.outputs.base64 }}"
+          "!"
