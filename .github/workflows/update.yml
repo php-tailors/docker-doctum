@@ -22,10 +22,11 @@ jobs:
 ##        env:
 ##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ##      - run: echo "${{ toJson(steps.doctum.outputs.data) }}"
-      - uses: pozetroninc/github-action-get-latest-release@master
-        id: doctum
+      - uses: './releases'
+        id: releases
         with:
+          token: ${{ secrets.GET_RELEASES_TOKEN }}
           owner: code-lts
           repo: doctum
-          excludes: prerelease, draft
-      - run: echo "${{ toJson(steps.doctum.outputs.release.name) }}"
+          select: first 2
+      - run: echo "${{ steps.releases.outputs.releases }}"
