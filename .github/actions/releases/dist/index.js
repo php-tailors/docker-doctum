@@ -7159,6 +7159,8 @@ const doRun = async function () {
     const ascii = Buffer.from(json).toString('base64');
     core.setOutput("json", json);
     core.setOutput("base64", ascii);
+  }).catch(error => {
+    core.setFailed(error.message);
   });
 }
 
