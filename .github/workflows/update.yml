@@ -29,7 +29,7 @@ jobs:
           token: ${{ secrets.GET_RELEASES_TOKEN }}
           owner: code-lts
           repo: doctum
-          slice: first 2
+          slice: kaka
       - run: |
           base64 -d <<'!'
           ${{ steps.releases.outputs.base64 }}
