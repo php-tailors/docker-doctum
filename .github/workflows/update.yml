@@ -1,68 +1,66 @@
-name: Update Repository
+name: Get & Print Releases
 
 on:
-  workflow_dispatch:
-    inputs:
-      owner:
-        description: 'Owner'
-        required: true
-        default: 'code-lts'
-      repo:
-        description: 'Repo'
-        required: true
-        default: 'doctum'
-      name:
-        description: 'Name'
-        required: false
-      tag_name:
-        description: 'Tag name'
-        required: false
-      draft:
-        description: 'Draft (true|false)'
-        required: false
-      prerelease:
-        description: 'Prerelease (true|false)'
-        required: false
-      sort:
-        description: 'Sort'
-        required: false
-      select:
-        description: 'Select'
-        required: false
-      slice:
-        description: 'Slice'
-        required: false
+    workflow_dispatch:
+        inputs:
+            owner:
+                description: 'Owner'
+                required: true
+                default: 'code-lts'
+            repo:
+                description: 'Repo'
+                required: true
+                default: 'doctum'
+            name:
+                description: 'Name'
+                required: false
+            tag_name:
+                description: 'Tag'
+                required: false
+                default: '/v5\.2\.\d+/'
+            draft:
+                description: 'Draft'
+                required: false
+            prerelease:
+                description: 'Prerelease'
+                required: false
+            sort:
+                description: 'Sort'
+                required: false
+                default: id DSC
+            select:
+                description: 'Select'
+                required: false
+                default: id, name, tag, created_at, published_at, url
+            slice:
+                description: 'Slice'
+                required: false
 
 jobs:
-  main:
-    name: Get Releases
-    runs-on: ubuntu-latest
+    main:
+        name: Get & Print Releases
+        runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-##      - run: 'echo "inputs: ${{ toJson(github.event.inputs) }}"'
-##      - uses: octokit/request-action@v2.x
-##        id: doctum
-##        with:
-##          route: GET ${{ github.event.inputs.url }}
-##        env:
-##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-##      - run: echo "${{ toJson(steps.doctum.outputs.data) }}"
-      - uses: './.github/actions/releases'
-        id: releases
-        with:
-          token:      ${{ secrets.GET_RELEASES_TOKEN }}
-          owner:      ${{ github.event.inputs.owner }}
-          repo:       ${{ github.event.inputs.repo }}
-          name:       ${{ github.event.inputs.name }}
-          tag_name:   ${{ github.event.inputs.tag_name }}
-          draft:      ${{ github.event.inputs.draft }}
-          prerelease: ${{ github.event.inputs.prerelease }}
-          sort:       ${{ github.event.inputs.sort }}
-          select:     ${{ github.event.inputs.select }}
-          slice:      ${{ github.event.inputs.slice }}
-      - run: |
-          echo -n 'releases: ' && jq '' <<'!'
-          ${{ steps.releases.outputs.json }}
-          !
-          echo 'count: ${{ steps.releases.outputs.count }}'
+        steps:
+
+            - name: Get Releases
+                id: releases
+                uses: ptomulik/github-action-get-releases@v0
+                with:
+                    token:      ${{ secrets.GET_RELEASES_TOKEN }}
+                    owner:      ${{ github.event.inputs.owner }}
+                    repo:       ${{ github.event.inputs.repo }}
+                    name:       ${{ github.event.inputs.name }}
+                    tag_name:   ${{ github.event.inputs.tag_name }}
+                    draft:      ${{ github.event.inputs.draft }}
+                    prerelease: ${{ github.event.inputs.prerelease }}
+                    sort:       ${{ github.event.inputs.sort }}
+                    select:     ${{ github.event.inputs.select }}
+                    slice:      ${{ github.event.inputs.slice }}
+
+            - name: Print Releases
+                run: |
+                    echo -n 'releases: ' && jq '' <<'!'
+                    ${{ steps.releases.outputs.json }}
+                    !
+                    echo 'count: ${{ steps.releases.outputs.count }}'
