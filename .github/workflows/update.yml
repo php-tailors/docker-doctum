@@ -38,7 +38,7 @@ jobs:
           max_entries: ${{ github.event.inputs.max_entries }}
           per_page: ${{ github.event.inputs.per_page }}
       - run: |
-          echo -n 'releases: ' && base64 -d | <<'!'
+          echo -n 'releases: ' && base64 -d <<'!'
           ${{ steps.releases.outputs.base64 }}
           !
           echo 'names: ${{ steps.releases.outputs.names}}'
