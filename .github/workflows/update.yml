@@ -3,10 +3,15 @@ name: Update Repository
 on:
   workflow_dispatch:
     inputs:
-      url:
-        description: 'Release URL'
-        required: true
-        default: 'https://api.github.com/repos/code-lts/doctum/releases/latest'
+      slice:
+        description: 'Slice'
+        required: false
+      max_entries:
+        description: 'Max Entries'
+        required: false
+      per_page:
+        description: 'Entries per page'
+        required: false
 
 jobs:
   main:
@@ -15,7 +20,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: 'echo "inputs: ${{ toJson(github.event.inputs) }}"'
+##      - run: 'echo "inputs: ${{ toJson(github.event.inputs) }}"'
 ##      - uses: octokit/request-action@v2.x
 ##        id: doctum
 ##        with:
@@ -29,8 +34,12 @@ jobs:
           token: ${{ secrets.GET_RELEASES_TOKEN }}
           owner: code-lts
           repo: doctum
-          slice: first 2
+          slice: ${{ github.event.inputs.slice }}
+          max_entries: ${{ github.event.inputs.max_entries }}
+          per_page: ${{ github.event.inputs.per_page }}
       - run: |
-          base64 -d <<'!'
+          echo -n 'releases: ' && base64 -d | <<'!'
           ${{ steps.releases.outputs.base64 }}
           !
+          echo 'names: ${{ steps.releases.outputs.names}}'
+          echo 'count: ${{ steps.releases.outputs.count }}'

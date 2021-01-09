@@ -7081,21 +7081,21 @@ class Slicer {
   }
 
   static first(count) {
-      return (arr) => arr.slice(0, count);
+    return (arr) => arr.slice(0, count);
   }
 
   static last(count) {
-      return (arr) => {
-          const n = arr.length;
-          return arr.slice(n - count, n);
-      };
+    return (arr) => {
+      const n = arr.length;
+      return arr.slice(n - count, n);
+    };
   }
 
   static range(from, to) {
-      return (arr) => (
-        (to === null || to === undefined) ?
-            arr.slice(from) : arr.slice(from, 1 + to)
-      );
+    return (arr) => (
+      (to === null || to === undefined) ?
+      arr.slice(from) : arr.slice(from, 1 + to)
+    );
   }
 }
 
@@ -7113,13 +7113,7 @@ class Processor {
   }
 }
 
-
-const run = function () {
-  const inputs = getInputs();
-  const octokit = new Octokit({
-    auth: inputs.token,
-  });
-
+const createParams = (inputs) => {
   var params = {
     owner: inputs.owner,
     repo: inputs.repo,
@@ -7128,36 +7122,72 @@ const run = function () {
   if (inputs.per_page) {
     if (inputs.max_entries) {
       params.per_page = Math.min(inputs.per_page, inputs.max_entries);
+      core.debug(`pagination: set ${params.per_page} entries per page`);
     } else {
       params.per_page = inputs.per_page;
+      core.debug(`pagination: set ${params.per_page} entries per page`);
     }
   } else {
     if (inputs.max_entries && inputs.max_entries < 100) {
       params.per_page = inputs.max_entries;
+      core.debug(`pagination: set ${params.per_page} entries per page`);
     }
   }
 
-  var remains = inputs.max_entries ? inputs.max_entries : Number.MAX_SAFE_INTEGER;
+  return params;
+};
+
+const setOutputs = (entries) => {
+  const processor = new Processor(inputs);
+  const array = processor.process(entries);
+  const json = JSON.stringify(array);
+  const ascii = Buffer.from(json).toString('base64');
+  core.setOutput("json", json);
+  core.setOutput("base64", ascii);
+  core.setOutput("count", entries.length);
+  core.setOuptut("ids", JSON.stringify(entries.map((entry) => entry.id)));
+  core.setOuptut("names", JSON.stringify(entries.map((entry) => entry.name)));
+  core.setOuptut("tags", JSON.stringify(entries.map((entry) => entry.tag_name)));
+}
+
+
+const run = function () {
+  const inputs = getInputs();
+  const octokit = new Octokit({
+    auth: inputs.token,
+  });
+  const params = createParams(inputs);
+
+  core.debug(`inputs: ${JSON.stringify(inputs, null, 2)}`)
+
+  var remain;
+  if (inputs.max_entries) {
+    remain = inputs.max_entries;
+    core.debug(`pagination: setting number of remaing entries to ${remain}`);
+  } else {
+    remain = Number.MAX_SAFE_INTEGER;
+  }
 
   octokit.paginate(
     octokit.repos.listReleases,
     params,
     ({ data }, done) => {
-      remains -= data.length;
-      if (remains <= 0) {
+      core.debug(`pagination: retrieved page of ${data.length} entries`);
+      remain -= data.length;
+      if (remain <= 0) {
+        core.debug(`pagination: last page with ${-remain} surplus entries`);
+        if (remain < 0) {
+          data = data.slice(0, data.length + remain);
+        }
+        core.debug(`pagination: retaining ${data.length} of the retrieved entries`);
         done();
-      } else if (params.per_page && remains < params.per_page) {
-        params.per_page = remains;
+      } else if (inputs.max_entries) {
+        core.debug(`pagination: ${remain} entries remain to be retrieved`);
       }
       return data;
     }
-  ).then((data) => {
-    const processor = new Processor(inputs);
-    const array = processor.process(data);
-    const json = JSON.stringify(array);
-    const ascii = Buffer.from(json).toString('base64');
-    core.setOutput("json", json);
-    core.setOutput("base64", ascii);
+  ).then((entries) => {
+    setOutputs(entries);
   }, (reason) => {
     core.error(reason);
   }).catch((error) => {
