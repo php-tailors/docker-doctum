@@ -54,11 +54,11 @@ jobs:
           token:      ${{ secrets.GET_RELEASES_TOKEN }}
           owner:      ${{ github.event.inputs.owner }}
           repo:       ${{ github.event.inputs.repo }}
-          name:       ${{ github.event.inputs.select }}
-          tag_name:   ${{ github.event.inputs.select }}
-          draft:      ${{ github.event.inputs.select }}
-          prerelease: ${{ github.event.inputs.select }}
-          sort:       ${{ github.event.inputs.select }}
+          name:       ${{ github.event.inputs.name }}
+          tag_name:   ${{ github.event.inputs.tag_name }}
+          draft:      ${{ github.event.inputs.draft }}
+          prerelease: ${{ github.event.inputs.prerelease }}
+          sort:       ${{ github.event.inputs.sort }}
           select:     ${{ github.event.inputs.select }}
           slice:      ${{ github.event.inputs.slice }}
       - run: |
