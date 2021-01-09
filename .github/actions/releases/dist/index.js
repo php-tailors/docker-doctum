@@ -7387,7 +7387,7 @@ class Filter {
 
   static makeTests(inputs) {
     return [... Filter.comparators].filter(
-      ([key, comparator]) => key in inputs
+      ([key, comparator]) => inputs[key] != null
     ).map(
       ([key, comparator]) => (entry) => comparator(entry[key], inputs[key])
     );
@@ -7424,10 +7424,10 @@ Filter.comparators = new Map([
 
 class Sorter {
   constructor(sort) {
-    if (sort === null || sort === undefined) {
+    if (sort == null) {
       this.sort = (entries) => entries;
     } else {
-      this.sort = (data) => data.sort(Sorter.callback(sort));
+      this.sort = (entries) => entries.sort(Sorter.callback(sort));
     }
   }
 
@@ -7453,7 +7453,7 @@ class Sorter {
   }
 
   static callback(sort) {
-    if (sort === null || sort === undefined) {
+    if (sort == null) {
       return undefined;
     } else {
       const tuples = sort.map((s) => ((s instanceof Array) ? s : [s, 'A']));
@@ -7468,15 +7468,15 @@ class Sorter {
 
 class Selector {
   constructor(keys) {
-    if (keys === null || keys === undefined) {
-      this.select = (data) => data;
+    if (keys == null) {
+      this.select = (entries) => entries;
     } else {
-      this.select = (data) => data.map(Selector.callback(keys));
+      this.select = (entries) => entries.map(Selector.callback(keys));
     }
   }
 
   static callback(keys) {
-    if (keys === null || keys === undefined) {
+    if (keys == null) {
       return (entry) => entry;
     } else {
       return (entry) => keys.reduce(
@@ -7492,11 +7492,11 @@ class Slicer {
   }
 
   static method(slice) {
-    const count = (s) => ((s.count === null || s.count === undefined) ?  1 : s.count);
-    const from  = (s) => ((s.from === null || s.from === undefined) ? 0 : s.from);
-    const to    = (s) => ((s.to === null || s.to === undefined) ? undefined : 1 + s.to);
+    const count = (s) => ((s.count == null) ?  1 : s.count);
+    const from  = (s) => ((s.from == null) ? 0 : s.from);
+    const to    = (s) => ((s.to == null) ? undefined : 1 + s.to);
 
-    if (slice === null || slice === undefined) {
+    if (slice == null) {
       return (arr) => arr;
     }
 
@@ -7525,8 +7525,7 @@ class Slicer {
 
   static range(from, to) {
     return (arr) => (
-      (to === null || to === undefined) ?
-      arr.slice(from) : arr.slice(from, 1 + to)
+      (to == null) ?  arr.slice(from) : arr.slice(from, 1 + to)
     );
   }
 }
@@ -7539,11 +7538,11 @@ class Processor {
     this.slicer = new Slicer(inputs.slice);
   }
 
-  process(data) {
+  process(entries) {
     return this.slicer.slice(
       this.selector.select(
         this.sorter.sort(
-          this.filter.filter(data)
+          this.filter.filter(entries)
         )
       )
     );
