@@ -55,7 +55,9 @@ inputs:
     default: ''
 
   # #########################################################################
-  # Allows selecting releases whose names match given criteria.
+  # Select releases whose names match given criteria. The parameter may be set
+  # to a specific release name, may be a regular expression (possibly with
+  # flags) or may be a special string "*" to allow any tag name.
   #
   # Examples:
   #
@@ -77,7 +79,9 @@ inputs:
     default: '*'
 
   # #########################################################################
-  # Allows selecting releases whose tag names match given criteria.
+  # Select releases whose tag names match given criteria. The parameter may be
+  # set to a specific tag name, may be a regular expression (possibly with
+  # flags) or may be a special string "*" to allow any tag name.
   #
   # Examples:
   #
@@ -137,7 +141,6 @@ inputs:
   sort:
     description: 'List of properties used for sorting the retrieved releases.'
     required: false
-    default: ''
 
   # #########################################################################
   # Default sort order. Allowed values are
@@ -150,30 +153,46 @@ inputs:
     required: true
     default: 'ASC'
 
+  # #########################################################################
+  # List of properties to be included in each entry of the result. This should
+  # be a space or comma separated list of keywords. Special string "*" allows
+  # all properties.
+  #
+  # Examples:
+  #
+  # # Select all properties
+  # select: '*'
+  #
+  # # Select only name and url
+  # select: 'name, url'
+  # #########################################################################
+  select:
+    description: 'List of properties to be included.'
+    required: false
 
   # #########################################################################
-  # Determines the range of entries to be selected after sorting.
+  # Determines the range of entries to be sliceed after sorting.
   #
-  # # Select all
-  # select: 'all'
+  # # Return all entries
+  # slice: 'all'
   #
-  # # Select first entry
-  # select: 'first'
+  # # Return first entry
+  # slice: 'first'
   #
-  # # Select up to 3 first entries
-  # select: 'first 3'
+  # # Return up to 3 first entries
+  # slice: 'first 3'
   #
-  # # Select last entry
-  # select: 'last'
+  # # Return last entry
+  # slice: 'last'
   #
-  # # Select up to 3 last entries
-  # select: 'last 3'
+  # # Return up to 3 last entries
+  # slice: 'last 3'
   #
-  # # Select entries 2 to 4 (zero-based indices)
-  # select: '2 ... 4'
+  # # Return entries 2 to 4 (zero-based indices)
+  # slice: '2 ... 4'
   #
-  # # Select entries from 2 to end of array
-  # select: '2 ...'
+  # # Return entries from 2 to end of array
+  # slice: '2 ...'
   #
   # #########################################################################
   slice:
@@ -181,8 +200,12 @@ inputs:
     required: true
     default: 'all'
 outputs:
-  releases:
-    description: 'The resultant array of releases as json string.'
+  json:
+    description: 'The result as json string.'
+  base64:
+    description: 'The result as BASE64 encoded json string.'
+  count:
+    description: 'The number of entries in the result.'
 runs:
   using: 'node12'
   main: 'dist/index.js'

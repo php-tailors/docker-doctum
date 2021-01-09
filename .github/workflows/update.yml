@@ -3,19 +3,27 @@ name: Update Repository
 on:
   workflow_dispatch:
     inputs:
+      owner:
+        description: 'Owner'
+        required: true
+        default: 'code-lts'
+      repo:
+        description: 'Repo'
+        required: true
+        default: 'doctum'
+      sort:
+        description: 'Sort'
+        required: false
+      select:
+        description: 'Select'
+        required: false
       slice:
         description: 'Slice'
-        required: false
-      max_entries:
-        description: 'Max Entries'
-        required: false
-      per_page:
-        description: 'Entries per page'
         required: false
 
 jobs:
   main:
-    name: Verify
+    name: Get Releases
     runs-on: ubuntu-latest
 
     steps:
@@ -31,15 +39,13 @@ jobs:
       - uses: './.github/actions/releases'
         id: releases
         with:
-          token: ${{ secrets.GET_RELEASES_TOKEN }}
-          owner: code-lts
-          repo: doctum
-          slice: ${{ github.event.inputs.slice }}
-          max_entries: ${{ github.event.inputs.max_entries }}
-          per_page: ${{ github.event.inputs.per_page }}
+          token:  ${{ secrets.GET_RELEASES_TOKEN }}
+          owner:  ${{ github.event.inputs.owner }}
+          repo:   ${{ github.event.inputs.repo }}
+          select: ${{ github.event.inputs.select }}
+          slice:  ${{ github.event.inputs.slice }}
       - run: |
-          echo -n 'releases: ' && base64 -d <<'!'
+          echo -n 'releases: ' && base64 -d | jq '' <<'!'
           ${{ steps.releases.outputs.base64 }}
           !
-          echo 'names: ${{ steps.releases.outputs.names}}'
           echo 'count: ${{ steps.releases.outputs.count }}'
