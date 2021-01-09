@@ -32,7 +32,7 @@ on:
             select:
                 description: 'Select'
                 required: false
-                default: id, name, tag, created_at, published_at, url
+                default: id, name, tag_name, created_at, published_at, url
             slice:
                 description: 'Slice'
                 required: false
