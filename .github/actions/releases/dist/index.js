@@ -7145,9 +7145,9 @@ const setOutputs = (inputs, entries) => {
   core.setOutput("json", json);
   core.setOutput("base64", ascii);
   core.setOutput("count", entries.length);
-  core.setOuptut("ids", JSON.stringify(entries.map((entry) => entry.id)));
-  core.setOuptut("names", JSON.stringify(entries.map((entry) => entry.name)));
-  core.setOuptut("tags", JSON.stringify(entries.map((entry) => entry.tag_name)));
+  core.setOutput("ids", JSON.stringify(entries.map((entry) => entry.id)));
+  core.setOutput("names", JSON.stringify(entries.map((entry) => entry.name)));
+  core.setOutput("tags", JSON.stringify(entries.map((entry) => entry.tag_name)));
 }
 
 
