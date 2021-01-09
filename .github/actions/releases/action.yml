@@ -10,7 +10,6 @@ inputs:
   token:
     description: 'Personal token.'
     required: false
-    default: ''
 
   # #########################################################################
   # Owner of the remote repository that is to be queried for its releases.
@@ -38,7 +37,6 @@ inputs:
   per_page:
     description: 'Page size.'
     required: false
-    default: ''
 
   # #########################################################################
   # Limits the number of entries that can be retrieved from the remote
@@ -52,7 +50,6 @@ inputs:
   max_entries:
     description: 'Max number of entries retrieved from remote repository.'
     required: false
-    default: ''
 
   # #########################################################################
   # Select releases whose names match given criteria. The parameter may be set
@@ -76,7 +73,6 @@ inputs:
   name:
     description: 'String used to filter retrieved releases by name.'
     required: false
-    default: '*'
 
   # #########################################################################
   # Select releases whose tag names match given criteria. The parameter may be
@@ -100,7 +96,6 @@ inputs:
   tag_name:
     description: 'String used to filter retrieved releases by tag_name.'
     required: false
-    default: '*'
 
   # #########################################################################
   # Allows selecting draft/non-draft releases. Suported values are
@@ -113,7 +108,6 @@ inputs:
   draft:
     description: 'Value used to filter retrieved releases by draft status.'
     required: false
-    default: 'false'
 
   # #########################################################################
   # Allows selecting prereleases/non-prereleases. Suported values are
@@ -126,7 +120,6 @@ inputs:
   prerelease:
     description: 'Value used to filter retrieved releases by prerelease status.'
     required: false
-    default: 'false'
 
   # #########################################################################
   # Comma-separated list of property names, each optionally followed by order
@@ -150,8 +143,7 @@ inputs:
   # #########################################################################
   order:
     description: 'Default sort order.'
-    required: true
-    default: 'ASC'
+    required: false
 
   # #########################################################################
   # List of properties to be included in each entry of the result. This should
@@ -197,8 +189,7 @@ inputs:
   # #########################################################################
   slice:
     description: 'The range of entries to be returned.'
-    required: true
-    default: 'all'
+    required: false
 outputs:
   json:
     description: 'The result as json string.'
