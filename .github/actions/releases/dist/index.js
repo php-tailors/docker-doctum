@@ -7042,12 +7042,14 @@ const createParams = (inputs) => {
 };
 
 const setOutputs = (inputs, entries) => {
+  core.info(`setOutputs: preparing for ${entries.length} entries`);
+
   const processor = new Processor(inputs);
   const array = processor.process(entries);
   const json = JSON.stringify(array);
   const ascii = Buffer.from(json).toString('base64');
 
-  core.info(`outputs: setting outputs for ${array.length} entries`);
+  core.info(`setOutputs: setting outputs for ${array.length} entries`);
   core.setOutput("json", json);
   core.setOutput("base64", ascii);
   core.setOutput("count", entries.length);
