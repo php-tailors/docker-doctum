@@ -1,8 +1,4 @@
 ---
-Retrieves a list of releases from remote repository and outputs it in JSON form
-to console. Action inputs may be provided via HTML form when triggered manually.
----
-
 name: Get & Print Releases
 
 on:
