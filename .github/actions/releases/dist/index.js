@@ -7122,15 +7122,15 @@ const createParams = (inputs) => {
   if (inputs.per_page) {
     if (inputs.max_entries) {
       params.per_page = Math.min(inputs.per_page, inputs.max_entries);
-      core.debug(`pagination: set ${params.per_page} entries per page`);
+      core.log(`pagination: set ${params.per_page} entries per page`);
     } else {
       params.per_page = inputs.per_page;
-      core.debug(`pagination: set ${params.per_page} entries per page`);
+      core.log(`pagination: set ${params.per_page} entries per page`);
     }
   } else {
     if (inputs.max_entries && inputs.max_entries < 100) {
       params.per_page = inputs.max_entries;
-      core.debug(`pagination: set ${params.per_page} entries per page`);
+      core.log(`pagination: set ${params.per_page} entries per page`);
     }
   }
 
@@ -7158,12 +7158,12 @@ const run = function () {
   });
   const params = createParams(inputs);
 
-  core.debug(`inputs: ${JSON.stringify(inputs, null, 2)}`)
+  core.log(`inputs: ${JSON.stringify(inputs, null, 2)}`)
 
   var remain;
   if (inputs.max_entries) {
     remain = inputs.max_entries;
-    core.debug(`pagination: setting number of remaing entries to ${remain}`);
+    core.log(`pagination: setting number of remaing entries to ${remain}`);
   } else {
     remain = Number.MAX_SAFE_INTEGER;
   }
@@ -7172,17 +7172,17 @@ const run = function () {
     octokit.repos.listReleases,
     params,
     ({ data }, done) => {
-      core.debug(`pagination: retrieved page of ${data.length} entries`);
+      core.log(`pagination: retrieved page of ${data.length} entries`);
       remain -= data.length;
       if (remain <= 0) {
-        core.debug(`pagination: last page with ${-remain} surplus entries`);
+        core.log(`pagination: last page with ${-remain} surplus entries`);
         if (remain < 0) {
           data = data.slice(0, data.length + remain);
         }
-        core.debug(`pagination: retaining ${data.length} of the retrieved entries`);
+        core.log(`pagination: retaining ${data.length} of the retrieved entries`);
         done();
       } else if (inputs.max_entries) {
-        core.debug(`pagination: ${remain} entries remain to be retrieved`);
+        core.log(`pagination: ${remain} entries remain to be retrieved`);
       }
       return data;
     }
