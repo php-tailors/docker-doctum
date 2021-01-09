@@ -7137,7 +7137,7 @@ const createParams = (inputs) => {
   return params;
 };
 
-const setOutputs = (entries) => {
+const setOutputs = (inputs, entries) => {
   const processor = new Processor(inputs);
   const array = processor.process(entries);
   const json = JSON.stringify(array);
@@ -7187,7 +7187,7 @@ const run = function () {
       return data;
     }
   ).then((entries) => {
-    setOutputs(entries);
+    setOutputs(inputs, entries);
   }, (reason) => {
     core.error(reason);
   }).catch((error) => {
