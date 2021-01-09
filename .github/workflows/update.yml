@@ -11,6 +11,18 @@ on:
         description: 'Repo'
         required: true
         default: 'doctum'
+      name:
+        description: 'Name'
+        required: false
+      tag_name:
+        description: 'Tag name'
+        required: false
+      draft:
+        description: 'Draft (true|false)'
+        required: false
+      prerelease:
+        description: 'Prerelease (true|false)'
+        required: false
       sort:
         description: 'Sort'
         required: false
@@ -39,11 +51,16 @@ jobs:
       - uses: './.github/actions/releases'
         id: releases
         with:
-          token:  ${{ secrets.GET_RELEASES_TOKEN }}
-          owner:  ${{ github.event.inputs.owner }}
-          repo:   ${{ github.event.inputs.repo }}
-          select: ${{ github.event.inputs.select }}
-          slice:  ${{ github.event.inputs.slice }}
+          token:      ${{ secrets.GET_RELEASES_TOKEN }}
+          owner:      ${{ github.event.inputs.owner }}
+          repo:       ${{ github.event.inputs.repo }}
+          name:       ${{ github.event.inputs.select }}
+          tag_name:   ${{ github.event.inputs.select }}
+          draft:      ${{ github.event.inputs.select }}
+          prerelease: ${{ github.event.inputs.select }}
+          sort:       ${{ github.event.inputs.select }}
+          select:     ${{ github.event.inputs.select }}
+          slice:      ${{ github.event.inputs.slice }}
       - run: |
           echo -n 'releases: ' && jq '' <<'!'
           ${{ steps.releases.outputs.json }}
