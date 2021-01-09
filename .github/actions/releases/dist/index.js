@@ -7043,8 +7043,7 @@ const createParams = (inputs) => {
 
 const setOutputs = (inputs, entries) => {
   const processor = new Processor(inputs);
-  //const array = processor.process(entries);
-  const array = entries;
+  const array = processor.process(entries);
   const json = JSON.stringify(array);
   const ascii = Buffer.from(json).toString('base64');
 
