@@ -1,3 +1,8 @@
+---
+Retrieves a list of releases from remote repository and outputs it in JSON form
+to console. Action inputs may be provided via HTML form when triggered manually.
+---
+
 name: Get & Print Releases
 
 on:
@@ -44,23 +49,25 @@ jobs:
         steps:
 
             - name: Get Releases
-                id: releases
-                uses: ptomulik/github-action-get-releases@v0
-                with:
-                    token:      ${{ secrets.GET_RELEASES_TOKEN }}
-                    owner:      ${{ github.event.inputs.owner }}
-                    repo:       ${{ github.event.inputs.repo }}
-                    name:       ${{ github.event.inputs.name }}
-                    tag_name:   ${{ github.event.inputs.tag_name }}
-                    draft:      ${{ github.event.inputs.draft }}
-                    prerelease: ${{ github.event.inputs.prerelease }}
-                    sort:       ${{ github.event.inputs.sort }}
-                    select:     ${{ github.event.inputs.select }}
-                    slice:      ${{ github.event.inputs.slice }}
+              id: releases
+              uses: ptomulik/github-action-get-releases@v0
+              with:
+                  token: ${{ secrets.GET_RELEASES_TOKEN }}
+                  owner: ${{ github.event.inputs.owner }}
+                  repo: ${{ github.event.inputs.repo }}
+                  name: ${{ github.event.inputs.name }}
+                  tag_name: ${{ github.event.inputs.tag_name }}
+                  draft: ${{ github.event.inputs.draft }}
+                  prerelease: ${{ github.event.inputs.prerelease }}
+                  sort: ${{ github.event.inputs.sort }}
+                  select: ${{ github.event.inputs.select }}
+                  slice: ${{ github.event.inputs.slice }}
 
             - name: Print Releases
-                run: |
-                    echo -n 'releases: ' && jq '' <<'!'
-                    ${{ steps.releases.outputs.json }}
-                    !
-                    echo 'count: ${{ steps.releases.outputs.count }}'
+              run: |
+                  echo -n 'releases: ' && jq '' <<'!'
+                  ${{ steps.releases.outputs.json }}
+                  !
+                  echo 'count: ${{ steps.releases.outputs.count }}'
+
+# vim: set ft=yaml ts=4 sw=4 sts=4 et:
