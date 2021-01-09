@@ -45,7 +45,7 @@ jobs:
           select: ${{ github.event.inputs.select }}
           slice:  ${{ github.event.inputs.slice }}
       - run: |
-          echo -n 'releases: ' && base64 -d <<'!'
+          echo -n 'releases: ' && (base64 -d && echo '') | jq '' <<'!'
           ${{ steps.releases.outputs.base64 }}
           !
           echo 'count: ${{ steps.releases.outputs.count }}'
