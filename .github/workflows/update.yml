@@ -65,3 +65,5 @@ jobs:
                   ${{ steps.releases.outputs.json }}
                   !
                   echo 'count: ${{ steps.releases.outputs.count }}'
+
+# vim: set ft=yaml ts=4 sw=4 sts=2:
