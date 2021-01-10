@@ -5,36 +5,36 @@ on:
     workflow_dispatch:
         inputs:
             owner:
-                description: 'Owner'
+                description: 'owner'
                 required: true
-                default: 'code-lts'
+                default: 'ptomulik'
             repo:
-                description: 'Repo'
+                description: 'repo'
                 required: true
-                default: 'doctum'
+                default: 'github-action-get-releases'
             name:
-                description: 'Name'
+                description: 'name (e.g. "Release v1.2.3")'
                 required: false
             tag_name:
-                description: 'Tag'
+                description: 'tag_name (e.g. "v1.2.3")'
                 required: false
-                default: '/v5\.2\.\d+/'
+                default: '/v0\.\d+.\d+/'
             draft:
-                description: 'Draft'
+                description: 'draft ("true" or "false")'
                 required: false
             prerelease:
-                description: 'Prerelease'
+                description: 'prerelease ("true" or "false")'
                 required: false
             sort:
-                description: 'Sort'
+                description: 'sort (e.g. "tag_name DSC, id DSC")'
                 required: false
                 default: id DSC
             select:
-                description: 'Select'
+                description: 'select (e.g. "id, tag_name, url")'
                 required: false
                 default: id, name, tag_name, created_at, published_at, url
             slice:
-                description: 'Slice'
+                description: 'slice (e.g. "first 3")'
                 required: false
 
 jobs:
@@ -65,5 +65,3 @@ jobs:
                   ${{ steps.releases.outputs.json }}
                   !
                   echo 'count: ${{ steps.releases.outputs.count }}'
-
-# vim: set ft=yaml ts=4 sw=4 sts=4 et:
