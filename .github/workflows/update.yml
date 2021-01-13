@@ -46,7 +46,7 @@ jobs:
 
             - name: Get Releases
               id: releases
-              uses: ptomulik/github-action-get-releases@v0
+              uses: ptomulik/github-action-list-releases@v0
               with:
                   token: ${{ secrets.GET_RELEASES_TOKEN }}
                   owner: ${{ github.event.inputs.owner }}
