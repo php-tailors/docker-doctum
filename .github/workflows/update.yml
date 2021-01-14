@@ -11,7 +11,7 @@ on:
             repo:
                 description: 'repo'
                 required: true
-                default: 'github-action-get-releases'
+                default: 'github-action-list-releases'
             name:
                 description: 'name (e.g. "Release v1.2.3")'
                 required: false
