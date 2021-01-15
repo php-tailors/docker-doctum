@@ -11,7 +11,7 @@ on:
             repo:
                 description: 'repo'
                 required: true
-                default: 'github-action-list-releases'
+                default: 'github-list-releases-action'
             name:
                 description: 'name (e.g. "Release v1.2.3")'
                 required: false
@@ -46,7 +46,7 @@ jobs:
 
             - name: Get Releases
               id: releases
-              uses: ptomulik/github-action-list-releases@v0
+              uses: ptomulik/github-list-releases-action@v0
               with:
                   token: ${{ secrets.GET_RELEASES_TOKEN }}
                   owner: ${{ github.event.inputs.owner }}
