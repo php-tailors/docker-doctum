@@ -1,6 +1,6 @@
 import re
 
-__version__ = '0.6.1'
+__version__ = '0.7.0'
 
 def xrepr(arg):
     if isinstance(arg, str):
@@ -170,6 +170,9 @@ matrix = [
     ('5.3', '7.2'),
     ('5.3', '7.3'),
     ('5.3', '7.4'),
+    ('5.5', '7.4'),
+    ('5.5', '8.1'),
+    ('5.5', '8.2'),
 ]
 
 contexts = [ context(ver, php) for (ver, php) in matrix ]

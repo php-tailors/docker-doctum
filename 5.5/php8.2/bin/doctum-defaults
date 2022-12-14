@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+#############################################################################
+# NOTE: FILE GENERATED AUTOMATICALLY, DO NOT EDIT!!!
+#############################################################################
+
+
+# Default values for environment variables used by several scripts
+# of the phptailors/doctum docker image.
+
+DEFAULT_TLR_CODE='/code'
+DEFAULT_DOCTUM_VERSION='5.5'
+DEFAULT_DOCTUM_CONFIG='/etc/doctum/doctum.conf.php'
+DEFAULT_DOCTUM_PROJECT_TITLE='API Documentation'
+DEFAULT_DOCTUM_SOURCE_DIR='src'
+DEFAULT_DOCTUM_BUILD_DIR='docs/build/html/api'
+DEFAULT_DOCTUM_CACHE_DIR='docs/cache/html/api'
+DEFAULT_DOCTUM_FLAGS='-v --force --ignore-parse-errors'
+DEFAULT_DOCTUM_SERVER_PORT=8001
+DEFAULT_DOCTUM_SOURCE_REGEX='\.\(php\|txt\|rst\)$'
+DEFAULT_DOCTUM_THEME='default'
+DEFAULT_DOCTUM_BUILD_LOCK='/tmp/doctum-build.lock'
